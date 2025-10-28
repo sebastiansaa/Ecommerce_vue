@@ -1,0 +1,18 @@
+{
+  "categories": {
+    "clothes": "Clothes",
+    "electronics": "Electronics",
+    "furniture": "Furniture",
+    "shoes": "Shoes",
+    "miscellaneous": "Miscellaneous"
+  },
+  "buy": "Buy",
+  "account": "My Account",
+  "stores": "Stores",
+  "faq": "FAQ",
+  "cart": "Cart",
+  "about": "About",
+  "ourStores": "Our Stores",
+  "relatedProducts": "Related Products",
+  "noDescription": "No description available."
+}

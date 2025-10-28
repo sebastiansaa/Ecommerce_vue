@@ -1,0 +1,52 @@
+@import './base.css';
+
+/* Evitar scroll horizontal en toda la app */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Contenedor principal de la app */
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* Contenedor de contenido (dentro de #app) */
+#app-content {
+  width: 100%;
+  padding: 0 0.5rem; /* Padding lateral en mobile */
+}
+
+/* Header siempre arriba */
+header {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+/* Tablet: más padding lateral */
+@media (min-width: 768px) {
+  #app-content {
+    padding: 0 1rem;
+  }
+}
+
+/* Desktop: fondo diferente y padding lateral mayor */
+@media (min-width: 1024px) {
+  body {
+    background-color: #f6f3ee;
+  }
+
+  #app-content {
+    padding: 0 2rem;
+  }
+}
+
+/* Desktop grande: padding aún mayor */
+@media (min-width: 1400px) {
+  #app-content {
+    padding: 0 3rem;
+  }
+}

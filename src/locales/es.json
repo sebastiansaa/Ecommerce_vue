@@ -1,0 +1,19 @@
+{
+  "categories": {
+    "clothes": "Ropa",
+    "electronics": "Electrónica",
+    "furniture": "Muebles",
+    "shoes": "Zapatos",
+    "miscellaneous": "Misceláneos"
+  },
+  "buy": "Comprar",
+  "account": "Mi cuenta",
+  "stores": "Tiendas",
+  "faq": "Preguntas",
+  "cart": "Carrito",
+  "about": "Acerca de",
+  "ourStores": "Nuestras tiendas",
+  "comprar": "Comprar",
+  "relatedProducts": "Productos relacionados",
+  "noDescription": "Sin descripción disponible."
+}

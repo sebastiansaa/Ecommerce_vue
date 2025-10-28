@@ -1,0 +1,1 @@
+// Punto de entrada para los servicios del dominio search

@@ -1,0 +1,13 @@
+
+export { default as ProductDescription } from './ProductDescription.vue'
+export { default as ProductDescriptionDesktop } from './ProductDescriptionDesktop.vue'
+export { default as ProductDescriptionMobile } from './ProductDescriptionMobile.vue'
+export { default as ProductGallery } from './ProductGallery.vue'
+export { default as ProductGalleryDesktop } from './ProductGalleryDesktop.vue'
+export { default as ProductGalleryMobile } from './ProductGalleryMobile.vue'
+export { default as ProductRelated } from './ProductRelated.vue'
+export { default as ProductRelatedDesktop } from './ProductRelatedDesktop.vue'
+export { default as ProductRelatedMobile } from './ProductRelatedMobile.vue'
+export { default as ProductMain } from './ProductMain.vue'
+export { default as ProductMainDesktop } from './ProductMainDesktop.vue'
+export { default as ProductMainMobile } from './ProductMainMobile.vue'
