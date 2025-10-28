@@ -1,1 +1,3 @@
-// Punto de entrada para los servicios del dominio search
+export * from './searchService'
+export * from './suggestionService'
+export * from './historyService'

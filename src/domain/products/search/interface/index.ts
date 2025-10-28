@@ -1,1 +1,2 @@
-// Punto de entrada para las interfaces del dominio search
+
+export * from './search.interface'

@@ -1,1 +1,0 @@
-// Punto de entrada para los interceptors del dominio search
