@@ -21,9 +21,6 @@
         <BaseButton class="base-btn-nav-movil" @click="handleSectionMobile('about')">{{
           t('about')
         }}</BaseButton>
-        <BaseButton class="base-btn-nav-movil" @click="handleSectionMobile('faq')">{{
-          t('faq')
-        }}</BaseButton>
       </div>
     </div>
   </Drawer>
@@ -65,15 +62,16 @@ function updateIsOpen(value: boolean) {
 
 <style scoped>
 .nav__mobile-menu--under-nav {
-  margin-top: 56px;
+  margin-top: calc(56px + 64px); /* Nav (56px) + SearchBar (~64px) */
   background: var(--color-background);
   width: 100vw;
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 56px - 64px);
   height: 100%;
   left: 0;
   top: 0;
   position: fixed;
   z-index: 100;
+  padding-top: 1rem; /* Gap interno en vez de margin */
 }
 .nav__mobile-group {
   display: flex;

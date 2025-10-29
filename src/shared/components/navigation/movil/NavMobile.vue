@@ -12,13 +12,6 @@
         <div class="nav__right-icons">
           <button
             class="icon-btn-nav-movil"
-            aria-label="Buscar"
-            @click="handleSectionMobile('search')"
-          >
-            🔍
-          </button>
-          <button
-            class="icon-btn-nav-movil"
             aria-label="Carrito"
             @click="handleSectionMobile('cart')"
           >
@@ -30,6 +23,12 @@
         </div>
       </div>
     </nav>
+
+    <!-- SearchBar debajo del nav en móvil -->
+    <div class="nav__searchbar-mobile">
+      <SearchBar />
+    </div>
+
     <NavMobileDrawer
       :isOpen="isOpen"
       @update:isOpen="isOpen = $event"
@@ -45,6 +44,7 @@ import { useI18n } from 'vue-i18n'
 
 import { useNavigation } from '@/shared/composables'
 import { LogoButton } from '@/shared/components/ui/actions/buttons'
+import { SearchBar } from '@/domain/products/search/components'
 import NavMobileDrawer from './NavMobileDrawer.vue'
 
 const { handleCategory, handleSection, toggleLang, langText } = useNavigation()
@@ -185,5 +185,22 @@ function handleSectionMobile(section) {
   background: var(--color-background);
   border-radius: 12px;
   padding: 1.25rem 0.75rem;
+}
+
+.nav__searchbar-mobile {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e7ef;
+  z-index: 1999;
+}
+
+@media (min-width: 768px) {
+  .nav__searchbar-mobile {
+    display: none;
+  }
 }
 </style>

@@ -18,11 +18,11 @@ const { isMobile } = useBreakpoints()
 
 <style scoped>
 .nav-content {
-  padding-top: 56px;
+  padding-top: 145px; /* Nav (56px) + SearchBar móvil (~64px) + gap (25px) */
 }
 @media (min-width: 768px) {
   .nav-content {
-    padding-top: 120px;
+    padding-top: 125px; /* Nav desktop con searchbar integrado + gap (5px) */
   }
 }
 </style>

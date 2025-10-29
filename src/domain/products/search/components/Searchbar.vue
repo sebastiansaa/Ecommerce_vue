@@ -56,12 +56,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { IconButton } from '@/shared/components/ui/actions/buttons'
 import { Drawer } from '@/shared/components/ui/display'
-import SearchHistory from './SearchHistory.vue'
-import SearchSuggestions from './SearchSuggestions.vue'
-import SearchResults from './SearchResults.vue'
+import { SearchHistory, SearchSuggestions, SearchResults } from '.'
 import { useSuggestion } from '../Composable'
 import { searchProducts } from '../services'
 import { removeFromHistory, getHistorySuggestions, saveToHistory } from '../services/historyService'

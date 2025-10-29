@@ -15,5 +15,13 @@
   "ourStores": "Nuestras tiendas",
   "comprar": "Comprar",
   "relatedProducts": "Productos relacionados",
-  "noDescription": "Sin descripción disponible."
+  "noDescription": "Sin descripción disponible.",
+  "appName": "E-Commerce",
+  "footerDescription": "Tu tienda online de confianza",
+  "navigation": "Navegación",
+  "contact": "Contacto",
+  "email": "Email",
+  "phone": "Teléfono",
+  "followUs": "Síguenos",
+  "allRightsReserved": "Todos los derechos reservados"
 }

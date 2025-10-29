@@ -3,29 +3,17 @@
     <div class="nav__section nav__section--left">
       <LogoButton />
     </div>
-    <div class="nav__section nav__section--center" style="position: relative">
-      <BaseButton class="base-btn-nav-desktop" @click="toggleCatMenu">{{ t('buy') }}</BaseButton>
+
+    <div class="nav__section nav__section--center">
+      <SearchBar />
     </div>
+
     <div class="nav__section nav__section--right">
-      <RouterLink class="nav__link" to="/stores">{{ t('ourStores') }}</RouterLink>
-      <RouterLink class="nav__link" to="/about">{{ t('about') }}</RouterLink>
-      <IconButton
-        class="icon-btn-nav-desktop"
-        aria-label="Buscar"
-        @click="handleSectionDesktop('search')"
-        >🔍</IconButton
-      >
       <IconButton
         class="icon-btn-nav-desktop"
         aria-label="Login"
         @click="handleSectionDesktop('login')"
         >👤</IconButton
-      >
-      <IconButton
-        class="icon-btn-nav-desktop"
-        aria-label="Preguntas"
-        @click="handleSectionDesktop('faq')"
-        >❓</IconButton
       >
       <IconButton
         class="icon-btn-nav-desktop"
@@ -40,34 +28,23 @@
       </div>
     </div>
   </nav>
-  <NavDesktopCat :show="showCatMenu" @select="handleCategory" />
+  <NavDesktopCat @select="handleCategory" />
 </template>
 
 <script setup>
-import { IconButton, BaseButton, LogoButton } from '@/shared/components/ui/actions/buttons'
+import { IconButton, LogoButton } from '@/shared/components/ui/actions/buttons'
+import { SearchBar } from '@/domain/products/search/components'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import NavDesktopCat from './NavDesktopCat.vue'
 import { useNavigation } from '@/shared/composables'
-import { ref } from 'vue'
 
 const router = useRouter()
 const { t } = useI18n()
 const { handleCategory, handleSection, toggleLang, langText, navStore } = useNavigation()
 
-function handleCategoryDesktop(category) {
-  handleCategory(category)
-}
-
 function handleSectionDesktop(section) {
   handleSection(section)
-}
-
-const showCatMenu = ref(false)
-
-function toggleCatMenu() {
-  showCatMenu.value = !showCatMenu.value
-  navStore.toggleNavCat()
 }
 </script>
 
@@ -127,12 +104,13 @@ function toggleCatMenu() {
 .nav__section--left {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 .nav__section--center {
   display: flex;
-  flex: 1;
+  flex: 0 0 45%;
   justify-content: center;
-  gap: 1rem;
+  padding: 0 1rem;
 }
 .nav__section--right {
   display: flex;

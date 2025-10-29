@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="nav-desktop-cat">
+  <div class="nav-desktop-cat">
     <BaseButton
       v-for="cat in categories"
       :key="cat.key"
@@ -18,9 +18,6 @@ import { BaseButton } from '@/shared/components/ui/actions/buttons'
 import { categories } from '@/shared/helpers/categories'
 import { useNavigation } from '@/shared/composables'
 
-const props = defineProps({
-  show: Boolean,
-})
 const emit = defineEmits(['select'])
 const { t } = useI18n()
 const { handleCategory, navStore } = useNavigation()
@@ -50,7 +47,7 @@ function selectCategory(key) {
     left: 50%;
     transform: translateX(-50%);
     position: fixed;
-    top: 62px;
+    top: calc(62px + 0.5rem);
     z-index: 1999;
     padding: 0.5rem 1rem;
     box-sizing: border-box;
