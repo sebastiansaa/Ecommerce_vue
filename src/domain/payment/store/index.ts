@@ -1,1 +1,1 @@
-// Punto de entrada para el store del dominio payment
+export * from './usePaymentStore'

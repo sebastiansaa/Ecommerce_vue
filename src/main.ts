@@ -1,3 +1,4 @@
+
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import Toast from 'vue-toastification';
@@ -14,10 +15,18 @@ import router from './router';
 
 import './assets/main.css';
 
+import { useAuthStore } from '@/domain/auth/store/useAuthStore';
+
+
 const app = createApp(App);
 const pinia = createPinia();
-const queryClient = new QueryClient();
+app.use(pinia);
 
+// Restaurar sesión antes de montar la app
+const authStore = useAuthStore();
+authStore.restoreSession();
+
+const queryClient = new QueryClient();
 const vueQueryOptions: VueQueryPluginOptions = {
   queryClient
 };
@@ -29,7 +38,6 @@ const i18n = createI18n({
   messages
 });
 
-app.use(pinia);
 app.use(router);
 app.use(VueQueryPlugin, vueQueryOptions);
 app.use(i18n);

@@ -40,7 +40,8 @@ import ProductsGrid from '@/domain/products/products/components/ProductsGrid.vue
 import { categories } from '@/shared/helpers/categories'
 import { useI18n } from 'vue-i18n'
 import { useCategoryInfiniteScroll } from '@/domain/products/products/Composable'
-import { computed } from 'vue'
+import { computed, watch, onMounted } from 'vue'
+import { useNavStore } from '@/stores/useNavStore'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -50,6 +51,20 @@ const currentCategory = computed(() => categories.find((cat) => cat.key === cate
 
 // Usar el nuevo composable que filtra por categoría en la API
 const { products: filteredProducts, isLoading, error } = useCategoryInfiniteScroll(category)
+
+const navStore = useNavStore()
+
+onMounted(() => {
+  if (category.value && navStore.selectedCategory !== category.value) {
+    navStore.setCategory(category.value)
+  }
+})
+
+watch(category, (newCat) => {
+  if (newCat && navStore.selectedCategory !== newCat) {
+    navStore.setCategory(newCat)
+  }
+})
 </script>
 
 <style scoped>

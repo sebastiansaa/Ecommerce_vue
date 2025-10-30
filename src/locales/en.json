@@ -22,5 +22,13 @@
   "email": "Email",
   "phone": "Phone",
   "followUs": "Follow Us",
-  "allRightsReserved": "All rights reserved"
+  "allRightsReserved": "All rights reserved",
+
+  "validation": {
+    "email": "Invalid email address",
+    "uppercase": "Must contain at least one uppercase letter",
+    "number": "Must contain at least one number",
+    "name": "Name must be at least 2 characters",
+    "passwordsMatch": "Passwords must match"
+  }
 }

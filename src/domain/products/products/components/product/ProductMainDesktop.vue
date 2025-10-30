@@ -5,6 +5,14 @@
     </div>
     <div class="details-section">
       <ProductDescription :product="product" />
+      <div class="actions-section">
+        <div class="action-btn">
+          <AddToCart :product="product" />
+        </div>
+        <div class="action-btn">
+          <BuyNow :product="product" />
+        </div>
+      </div>
     </div>
     <div class="related-section">
       <ProductRelated :product="product" />
@@ -18,6 +26,8 @@
 <script setup lang="ts">
 import { ProductDescription, ProductGallery, ProductRelated } from '.'
 import { ReviewMain } from '@/domain/products/reviews/components'
+import AddToCart from '@/domain/cart/components/AddToCart.vue'
+import BuyNow from '@/domain/payment/components/BuyNow.vue'
 import type { ProductInterface } from '../../interface'
 
 const props = defineProps<{ product: ProductInterface }>()
@@ -45,7 +55,31 @@ const props = defineProps<{ product: ProductInterface }>()
   grid-area: details;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
+}
+
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.action-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-btn :deep(button) {
+  width: 260px !important;
+  min-width: 260px !important;
+  max-width: 260px !important;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .related-section {

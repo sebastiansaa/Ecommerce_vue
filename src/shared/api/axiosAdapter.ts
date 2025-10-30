@@ -1,3 +1,5 @@
+//adapter que usa axios para hacer las peticiones HTTP, NO USA AUTENTICACIÓN. Para endpoints públicos
+
 import axios from "axios";
 
 import { useErrorHandler } from '@/shared/composables/useErrorHandler'

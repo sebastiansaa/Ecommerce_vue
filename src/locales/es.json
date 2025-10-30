@@ -23,5 +23,13 @@
   "email": "Email",
   "phone": "Teléfono",
   "followUs": "Síguenos",
-  "allRightsReserved": "Todos los derechos reservados"
+  "allRightsReserved": "Todos los derechos reservados",
+
+  "validation": {
+    "email": "Correo electrónico inválido",
+    "uppercase": "Debe contener al menos una letra mayúscula",
+    "number": "Debe contener al menos un número",
+    "name": "El nombre debe tener al menos 2 caracteres",
+    "passwordsMatch": "Las contraseñas deben coincidir"
+  }
 }

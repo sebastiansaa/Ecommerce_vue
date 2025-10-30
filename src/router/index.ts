@@ -34,17 +34,13 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/domain/user/views/UserView.vue')
+      component: () => import('@/domain/auth/views/authView.vue')
     },
+
     {
-      path: '/payment',
-      name: 'payment',
-      component: () => import('@/domain/payment/views/PaymentView.vue')
-    },
-    {
-      path: '/log',
-      name: 'log',
-      component: () => import('@/domain/log/views/LogView.vue')
+      path: '/payment/buy-now',
+      name: 'buy-now-checkout',
+      component: () => import('@/domain/payment/views/BuyNowCheckoutView.vue')
     },
     {
       path: '/faq',

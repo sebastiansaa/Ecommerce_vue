@@ -1,9 +1,15 @@
+.actions-section :deep(button) { width: 90vw; max-width: 320px; min-width: 220px; box-sizing:
+border-box; margin: 0 auto; }
 <template>
   <div class="product-main-mobile">
     <div class="gallery-section">
       <ProductGallery :images="product.images" :description="product.description" />
     </div>
     <div class="details-section">
+      <div class="actions-section">
+        <AddToCart :product="product" />
+        <BuyNow :product="product" />
+      </div>
       <ProductDescription :product="product" />
     </div>
     <div class="related-section">
@@ -18,6 +24,8 @@
 <script setup lang="ts">
 import { ProductDescription, ProductGallery, ProductRelated } from '.'
 import { ReviewMain } from '@/domain/products/reviews/components'
+import AddToCart from '@/domain/cart/components/AddToCart.vue'
+import BuyNow from '@/domain/payment/components/BuyNow.vue'
 import type { ProductInterface } from '../../interface'
 
 const props = defineProps<{ product: ProductInterface }>()
@@ -38,6 +46,14 @@ const props = defineProps<{ product: ProductInterface }>()
 
 .details-section {
   width: 100%;
+}
+
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
 }
 
 .related-section {
