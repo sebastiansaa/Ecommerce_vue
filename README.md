@@ -1,23 +1,10 @@
-# ecommerce
+Esta aplicación ecommerce, construida con Vue 3, Pinia y TypeScript, ofrece una experiencia completa y profesional tanto para usuarios como para administradores. Permite autenticación segura con JWT, registro, login social, recuperación y refresco de sesión. Los usuarios pueden explorar un catálogo de productos, buscar, filtrar por categorías, ver detalles, agregar al carrito y realizar compras simuladas con gestión de pagos. El sistema maneja inventario y stock en tiempo real, permitiendo actualizar cantidades y evitar compras de productos agotados.
 
-This template should help get you started developing with Vue 3 in Vite.
+Los administradores pueden gestionar productos, categorías, usuarios y órdenes desde un panel dedicado, con control de roles y permisos. Se pueden crear, editar y eliminar productos, subir imágenes, y administrar el inventario de manera eficiente. La app soporta reseñas y valoraciones de productos, permitiendo a los usuarios dejar feedback y consultar opiniones antes de comprar.
 
-## Recommended IDE Setup
+La arquitectura modular por dominios facilita la escalabilidad y el mantenimiento, integrando validación robusta, internacionalización (i18n), notificaciones y pruebas unitarias/E2E. El estado de la sesión y los datos clave se persisten automáticamente, garantizando una experiencia fluida incluso tras recargar la página.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+En resumen, esta app cubre todo el ciclo de un ecommerce moderno: autenticación, gestión de usuarios y roles, catálogo, carrito, pagos, inventario, administración, reviews y más, lista para producción y personalización.
 
 # Ecommerce Vue 3
 
