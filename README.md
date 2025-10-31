@@ -77,4 +77,4 @@ src/
 
 ---
 
-Desarrollado por [Tu Nombre]
+Desarrollado por Sebastian Saavedra
