@@ -1,4 +1,3 @@
-
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import Toast from 'vue-toastification';
@@ -16,10 +15,12 @@ import router from './router';
 import './assets/main.css';
 
 import { useAuthStore } from '@/domain/auth/store/useAuthStore';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
 
 const app = createApp(App);
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 app.use(pinia);
 
 // Restaurar sesión antes de montar la app

@@ -1,31 +1,27 @@
 <template>
-  <form @submit.prevent="onSubmit" class="auth-form">
-    <div class="form-group">
-      <label for="email">{{ $t('auth.email') }}</label>
-      <input
-        v-model="form.email"
-        id="email"
-        type="email"
-        required
-        :disabled="loading"
-        placeholder="tu@email.com"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">{{ $t('auth.password') }}</label>
-      <input
-        v-model="form.password"
-        id="password"
-        type="password"
-        required
-        :disabled="loading"
-        placeholder="••••••••"
-      />
-    </div>
+  <form @submit.prevent="handleSubmit" class="auth-form">
+    <FormInput
+      id="email"
+      type="email"
+      :label="$t('auth.email')"
+      v-model="form.email"
+      :error="errors.email"
+      :disabled="loading"
+      placeholder="tu@email.com"
+      required
+    />
+    <PasswordInput
+      id="password"
+      :label="$t('auth.password')"
+      v-model="form.password"
+      :error="errors.password"
+      :disabled="loading"
+      :is-visible="isVisible"
+      :toggle-visibility="toggleVisibility"
+      required
+    />
     <p v-if="error" class="error-message">{{ error }}</p>
-    <button type="submit" class="btn-submit" :disabled="loading">
-      {{ loading ? 'Cargando...' : $t('auth.login') }}
-    </button>
+    <SubmitButton :text="$t('auth.login')" :loading="loading" :disabled="loading" />
   </form>
 </template>
 
@@ -34,15 +30,37 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { login } from '@/domain/auth/services/loginService'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
+import { getLoginSchema } from '@/domain/auth/schema/loginSchema'
+import { usePasswordToggleStoreComposable, useFormHandler } from '@/shared/composables'
+import { FormInput, PasswordInput, SubmitButton } from '@/shared/components/form'
 
 const { t } = useI18n()
-const form = ref({ email: '', password: '' })
-const error = ref('')
-const loading = ref(false)
+const { isVisible, toggleVisibility } = usePasswordToggleStoreComposable()
 const authStore = useAuthStore()
 
-async function onSubmit() {
+// Estado del formulario
+const form = ref({ email: '', password: '' })
+const errors = ref({ email: '', password: '' })
+const error = ref('')
+const loading = ref(false)
+
+// Validación con Zod
+const loginSchema = getLoginSchema()
+const { validateAndClear } = useFormHandler(
+  loginSchema,
+  ['email', 'password'] as const,
+  errors,
+  form,
+)
+
+async function handleSubmit() {
   error.value = ''
+
+  // Validar con Zod
+  if (!validateAndClear()) {
+    return
+  }
+
   loading.value = true
   try {
     const res = await login(form.value.email, form.value.password)
@@ -64,71 +82,10 @@ async function onSubmit() {
   gap: 1.25rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.form-group input {
-  padding: 0.85rem 1rem;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.2s;
-  font-family: inherit;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-group input:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-}
-
 .error-message {
   color: #e53e3e;
   font-size: 0.9rem;
   margin: 0;
   text-align: center;
-}
-
-.btn-submit {
-  padding: 0.95rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-  margin-top: 0.5rem;
-}
-
-.btn-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.btn-submit:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.btn-submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 </style>

@@ -24,7 +24,11 @@ body {
 }
 #app-content {
   background: transparent;
-  min-height: 100vh;
   padding-top: 0;
+}
+main {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

@@ -1,42 +1,47 @@
 <template>
-  <form @submit.prevent="onSubmit" class="auth-form">
-    <div class="form-group">
-      <label for="name">{{ $t('auth.name') }}</label>
-      <input
-        v-model="form.name"
-        id="name"
-        type="text"
-        required
-        :disabled="loading"
-        placeholder="Tu nombre"
-      />
-    </div>
-    <div class="form-group">
-      <label for="reg-email">{{ $t('auth.email') }}</label>
-      <input
-        v-model="form.email"
-        id="reg-email"
-        type="email"
-        required
-        :disabled="loading"
-        placeholder="tu@email.com"
-      />
-    </div>
-    <div class="form-group">
-      <label for="reg-password">{{ $t('auth.password') }}</label>
-      <input
-        v-model="form.password"
-        id="reg-password"
-        type="password"
-        required
-        :disabled="loading"
-        placeholder="••••••••"
-      />
-    </div>
+  <form @submit.prevent="handleSubmit" class="auth-form">
+    <FormInput
+      id="name"
+      type="text"
+      :label="$t('auth.name')"
+      v-model="form.name"
+      :error="errors.name"
+      :disabled="loading"
+      placeholder="Tu nombre"
+      required
+    />
+    <FormInput
+      id="reg-email"
+      type="email"
+      :label="$t('auth.email')"
+      v-model="form.email"
+      :error="errors.email"
+      :disabled="loading"
+      placeholder="tu@email.com"
+      required
+    />
+    <PasswordInput
+      id="reg-password"
+      :label="$t('auth.password')"
+      v-model="form.password"
+      :error="errors.password"
+      :disabled="loading"
+      :is-visible="isVisible"
+      :toggle-visibility="toggleVisibility"
+      required
+    />
+    <PasswordInput
+      id="reg-repeat-password"
+      :label="$t('auth.repeatPassword')"
+      v-model="form.repeatPassword"
+      :error="errors.repeatPassword"
+      :disabled="loading"
+      :is-visible="isVisible"
+      :toggle-visibility="toggleVisibility"
+      required
+    />
     <p v-if="error" class="error-message">{{ error }}</p>
-    <button type="submit" class="btn-submit" :disabled="loading">
-      {{ loading ? 'Cargando...' : $t('auth.register') }}
-    </button>
+    <SubmitButton :text="$t('auth.register')" :loading="loading" :disabled="loading" />
   </form>
 </template>
 
@@ -45,21 +50,39 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { register } from '@/domain/auth/services/registerService'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
+import { getRegisterSchema } from '@/domain/auth/schema/registerSchema'
+import { usePasswordToggleStoreComposable, useFormHandler } from '@/shared/composables'
+import { FormInput, PasswordInput, SubmitButton } from '@/shared/components/form'
 
 const { t } = useI18n()
-const form = ref({ name: '', email: '', password: '' })
-const error = ref('')
-const loading = ref(false)
+const { isVisible, toggleVisibility } = usePasswordToggleStoreComposable()
 const authStore = useAuthStore()
 
-async function onSubmit() {
+const form = ref({ name: '', email: '', password: '', repeatPassword: '' })
+const errors = ref({ name: '', email: '', password: '', repeatPassword: '' })
+const error = ref('')
+const loading = ref(false)
+
+const registerSchema = getRegisterSchema()
+const { validateAndClear } = useFormHandler(
+  registerSchema,
+  ['name', 'email', 'password', 'repeatPassword'] as const,
+  errors,
+  form,
+)
+
+async function handleSubmit() {
   error.value = ''
+
+  if (!validateAndClear()) {
+    return
+  }
+
   loading.value = true
   try {
     const res = await register(form.value.name, form.value.email, form.value.password)
     const { access_token } = res.data as { access_token: string }
     authStore.setToken(access_token)
-    // Aquí podrías obtener el perfil y setUser
   } catch (e: any) {
     error.value = t('auth.register_error')
   } finally {
@@ -75,71 +98,10 @@ async function onSubmit() {
   gap: 1.25rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.form-group input {
-  padding: 0.85rem 1rem;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.2s;
-  font-family: inherit;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-group input:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-}
-
 .error-message {
   color: #e53e3e;
   font-size: 0.9rem;
   margin: 0;
   text-align: center;
-}
-
-.btn-submit {
-  padding: 0.95rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-  margin-top: 0.5rem;
-}
-
-.btn-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.btn-submit:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.btn-submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 </style>

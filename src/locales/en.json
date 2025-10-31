@@ -38,6 +38,7 @@
     "name": "Name",
     "email": "Email",
     "password": "Password",
+    "repeatPassword": "Repeat password",
     "login": "Login",
     "register": "Sign up",
     "no_account": "Don't have an account?",

@@ -39,6 +39,7 @@
     "name": "Nombre",
     "email": "Correo electrónico",
     "password": "Contraseña",
+    "repeatPassword": "Repetir contraseña",
     "login": "Login",
     "register": "Registrarse",
     "no_account": "¿No tienes cuenta?",

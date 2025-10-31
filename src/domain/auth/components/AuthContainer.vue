@@ -5,7 +5,7 @@
       <div v-if="!showRegisterDrawer" class="auth-content">
         <h1 class="auth-title">{{ $t('auth.loginTitle') }}</h1>
         <AuthBottomSocial class="mb-4" />
-        <AuthFormLogin @open-register="openRegisterDrawer" />
+        <AuthFormLogin />
         <div class="auth-switch">
           <span>
             {{ $t('auth.no_account') }}
@@ -19,7 +19,7 @@
       <!-- Register Form -->
       <div v-else class="auth-content">
         <h1 class="auth-title">{{ $t('auth.registerTitle') }}</h1>
-        <AuthFormRegister @close="closeRegisterDrawer" />
+        <AuthFormRegister />
         <div class="auth-switch">
           <span>
             {{ $t('auth.have_account') }}
@@ -66,14 +66,14 @@ watch(
 </script>
 
 <style scoped>
-/* Desktop por defecto (≥1024px según SHARED_CONFIG.breakpoints.desktop) */
+/* Desktop por defecto ( SHARED_CONFIG.breakpoints.desktop) */
 .auth-view {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 125px);
+  flex: 1;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding-top: 3rem;
+  padding: 3rem 0;
   box-sizing: border-box;
 }
 
@@ -131,11 +131,11 @@ watch(
   text-decoration: underline;
 }
 
-/* Tablet (768px - 1023px según SHARED_CONFIG.breakpoints) */
+/* Tablet (768px - 1023px SHARED_CONFIG.breakpoints) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .auth-view {
-    min-height: calc(100vh - 145px);
-    padding-top: 2rem;
+    flex: 1;
+    padding: 2rem 0;
   }
 
   .auth-container {
@@ -144,11 +144,11 @@ watch(
   }
 }
 
-/* Mobile (≤767px según SHARED_CONFIG.breakpoints.mobile) */
+/* Mobile ( SHARED_CONFIG.breakpoints.mobile) */
 @media (max-width: 767px) {
   .auth-view {
-    min-height: calc(100vh - 145px);
-    padding-top: 1.5rem;
+    flex: 1;
+    padding: 1.5rem 0;
   }
 
   .auth-container {
