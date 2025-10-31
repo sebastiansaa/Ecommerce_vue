@@ -30,5 +30,22 @@
     "number": "Must contain at least one number",
     "name": "Name must be at least 2 characters",
     "passwordsMatch": "Passwords must match"
+  },
+
+  "auth": {
+    "loginTitle": "Sign in",
+    "registerTitle": "Create account",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "register": "Sign up",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?",
+    "register_link": "Sign up",
+    "login_link": "Sign in",
+    "login_error": "Login failed. Please check your credentials.",
+    "register_error": "Registration failed. Please try again.",
+    "social_login": "Or continue with:"
   }
 }

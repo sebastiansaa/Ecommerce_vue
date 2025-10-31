@@ -36,6 +36,12 @@ const router = createRouter({
       name: 'login',
       component: () => import('@/domain/auth/views/authView.vue')
     },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/domain/auth/views/authView.vue'),
+      meta: { openRegister: true }
+    },
 
     {
       path: '/payment/buy-now',
