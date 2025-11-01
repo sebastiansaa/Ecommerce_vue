@@ -21,14 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import type { UserProfile } from '@/domain/user/interface'
 import { formatUserName, formatUserEmail, getUserRoleLabel } from '@/domain/user/helpers'
+import type { AccountProfile } from '@/domain/account/interface/AccountProfile'
 
 defineProps<{
-  user: UserProfile | null
+  user: AccountProfile | null
 }>()
 
-function getInitials(user: UserProfile) {
+function getInitials(user: AccountProfile) {
   const name = user.name || user.email
   return name
     .split(' ')

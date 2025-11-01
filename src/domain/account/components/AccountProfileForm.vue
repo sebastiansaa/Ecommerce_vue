@@ -24,10 +24,10 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { useFormHandler } from '@/shared/composables/useFormHandler'
 import { z } from 'zod'
-import { updateProfile } from '@/domain/user/services/userService'
+import { updateProfile } from '@/domain/account/services/accountService'
 import { useMutation } from '@tanstack/vue-query'
 import { useErrorHandler } from '@/shared/composables/useErrorHandler'
-import type { UserProfile } from '@/domain/user/interface/UserProfile'
+import type { AccountProfile } from '@/domain/account/interface/AccountProfile'
 
 const authStore = useAuthStore()
 const user = authStore.user
@@ -58,7 +58,7 @@ const { validateAndClear } = useFormHandler(schema, fields, errors, form)
 const mutation = useMutation({
   mutationFn: async (payload: typeof form.value) => {
     if (!user) throw new Error('No user')
-    const userProfile: UserProfile = {
+    const userProfile: AccountProfile = {
       id: user.id,
       name: payload.name,
       email: payload.email,

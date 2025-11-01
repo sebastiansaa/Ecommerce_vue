@@ -90,6 +90,11 @@ const router = createRouter({
         }
       ]
     },
+    {
+      path: '/account',
+      name: 'account',
+      component: () => import('@/domain/account/views/AccountView.vue')
+    },
   ],
 })
 

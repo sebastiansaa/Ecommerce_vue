@@ -36,7 +36,7 @@
           <div class="drawer-column drawer-column--right">
             <h4 class="column-title">{{ $t('user.menu.account', 'Mi Cuenta') }}</h4>
             <nav class="menu-list">
-              <button class="menu-item" @click="navigateTo('user')">
+              <button class="menu-item" @click="navigateTo('account')">
                 <span class="menu-icon">👤</span>
                 <span class="menu-text">{{ $t('user.menu.profile', 'Cuenta') }}</span>
               </button>
