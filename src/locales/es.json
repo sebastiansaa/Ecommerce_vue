@@ -48,6 +48,22 @@
     "login_link": "Inicia sesión",
     "login_error": "Error al iniciar sesión. Verifica tus credenciales.",
     "register_error": "Error al registrarse. Intenta de nuevo.",
-    "social_login": "O continúa con:"
+    "or": "o"
+  },
+
+  "user": {
+    "greeting": "Hola",
+    "menu": {
+      "title": "Mi Cuenta",
+      "shopping": "Compras",
+      "account": "Cuenta",
+      "wishlist": "Lista de Deseos",
+      "cart": "Carrito de Compras",
+      "discover": "Encuentra Más",
+      "profile": "Mi Perfil",
+      "orders": "Pedidos Realizados",
+      "reviews": "Mis Reseñas",
+      "logout": "Cerrar Sesión"
+    }
   }
 }

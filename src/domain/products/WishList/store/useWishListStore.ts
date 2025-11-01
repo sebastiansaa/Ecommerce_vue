@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import type { WishListItem } from '../interface/WishListItem'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
-import { getUuidForId } from '@/shared/helpers'
+import { getUuidForId, adaptProductId } from '@/shared/helpers'
 
 export const useWishListStore = defineStore('wishList', () => {
   const authStore = useAuthStore()
@@ -17,9 +17,11 @@ export const useWishListStore = defineStore('wishList', () => {
   })
 
 
-  function addToWishList(product: WishListItem['product']) {
-    if (!items.value.find((i: WishListItem) => i.product.id === product.id)) {
-      items.value.push({ id: Date.now().toString(), userId: userId.value, product })
+  function addToWishList(product: any) {
+    // Adaptar el producto para asegurar que cumple ProductInterface
+    const adaptedProduct = adaptProductId(product)
+    if (!items.value.find((i: WishListItem) => i.product.id === adaptedProduct.id)) {
+      items.value.push({ id: Date.now().toString(), userId: userId.value, product: adaptedProduct })
       saveToLocal()
     }
   }

@@ -48,5 +48,21 @@
     "login_error": "Login failed. Please check your credentials.",
     "register_error": "Registration failed. Please try again.",
     "social_login": "Or continue with:"
+  },
+
+  "user": {
+    "greeting": "Hello",
+    "menu": {
+      "title": "My Account",
+      "shopping": "Shopping",
+      "account": "Account",
+      "wishlist": "Wishlist",
+      "cart": "Shopping Cart",
+      "discover": "Discover More",
+      "profile": "My Profile",
+      "orders": "Order History",
+      "reviews": "My Reviews",
+      "logout": "Sign Out"
+    }
   }
 }

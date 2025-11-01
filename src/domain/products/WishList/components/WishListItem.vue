@@ -1,18 +1,43 @@
 <template>
-  <div class="wishlist-item">
+  <div class="wishlist-item clickable" @click="goToProductDetail">
     <img :src="item.product.images[0]" alt="Imagen del producto" class="wishlist-img" />
     <div class="wishlist-info">
       <h2 class="wishlist-product-title">{{ item.product.title }}</h2>
       <p class="wishlist-product-price">${{ item.product.price.toFixed(2) }}</p>
-      <button class="wishlist-remove" @click="$emit('remove')">Quitar</button>
+      <button class="wishlist-remove" @click.stop="$emit('remove')">Quitar</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { WishListItem } from '../interface/WishListItem'
+import { useProductNavigation } from '@/shared/composables/useProductNavigation'
+import { adaptProductId } from '@/shared/helpers'
+import { computed } from 'vue'
 
-defineProps<{ item: WishListItem }>()
+const props = defineProps<{ item: WishListItem }>()
+const { navigateToProduct } = useProductNavigation()
+
+function getSafeProduct(product: any) {
+  // Adaptar y completar con valores por defecto si faltan campos
+  const adapted = adaptProductId(product)
+  return {
+    id: adapted.id,
+    title: adapted.title || '',
+    slug: adapted.slug || adapted.title?.toLowerCase().replace(/\s+/g, '-') || 'producto',
+    price: adapted.price || 0,
+    description: adapted.description || '',
+    category: adapted.category || { id: '', slug: '', name: '' },
+    images: adapted.images || [],
+    createdAt: adapted.createdAt || '',
+    updatedAt: adapted.updatedAt || '',
+  }
+}
+
+function goToProductDetail() {
+  const product = getSafeProduct(props.item.product)
+  navigateToProduct(product)
+}
 </script>
 
 <style scoped>
@@ -24,6 +49,12 @@ defineProps<{ item: WishListItem }>()
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   padding: 1rem;
   gap: 1rem;
+  cursor: pointer;
+}
+
+.wishlist-item.clickable:hover {
+  background: #f3f4f6;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .wishlist-img {

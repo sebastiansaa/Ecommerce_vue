@@ -9,12 +9,13 @@
     </div>
 
     <div class="nav__section nav__section--right">
-      <IconButton
-        class="icon-btn-nav-desktop"
-        aria-label="Login"
-        @click="handleSectionDesktop('login')"
-        >👤</IconButton
-      >
+      <!-- Botón de Usuario con Drawer -->
+      <UserButton
+        @toggle-menu="isUserMenuOpen = !isUserMenuOpen"
+        @mouse-enter="handleUserMenuHover(true)"
+        @mouse-leave="handleUserMenuHover(false)"
+      />
+
       <IconButton
         class="icon-btn-nav-desktop"
         aria-label="Lista de deseos"
@@ -35,22 +36,44 @@
     </div>
   </nav>
   <NavDesktopCat @select="handleCategory" />
+
+  <!-- User Menu Drawer -->
+  <UserMenuDrawer v-model:is-open="isUserMenuOpen" />
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { IconButton, LogoButton } from '@/shared/components/ui/actions/buttons'
 import { SearchBar } from '@/domain/products/search/components'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import NavDesktopCat from './NavDesktopCat.vue'
+import UserButton from '../UserButton.vue'
+import UserMenuDrawer from '../UserMenuDrawer.vue'
 import { useNavigation } from '@/shared/composables'
 
 const router = useRouter()
 const { t } = useI18n()
 const { handleCategory, handleSection, toggleLang, langText, navStore } = useNavigation()
 
+const isUserMenuOpen = ref(false)
+let hoverTimeout = null
+
 function handleSectionDesktop(section) {
   handleSection(section)
+}
+
+function handleUserMenuHover(isEntering) {
+  // Abrir el menú cuando el mouse entra (con un pequeño delay)
+  if (isEntering) {
+    clearTimeout(hoverTimeout)
+    hoverTimeout = setTimeout(() => {
+      isUserMenuOpen.value = true
+    }, 200)
+  } else {
+    // No cerrar automáticamente al salir, dejar que el usuario cierre manualmente
+    clearTimeout(hoverTimeout)
+  }
 }
 </script>
 

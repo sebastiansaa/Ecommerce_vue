@@ -63,6 +63,33 @@ const router = createRouter({
       name: 'wishlist',
       component: () => import('@/domain/products/WishList/views/WishListView.vue')
     },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('@/domain/user/views/UserProfileView.vue'),
+      children: [
+        {
+          path: 'orders',
+          name: 'user-orders',
+          component: () => import('@/domain/user/views/UserOrdersView.vue')
+        },
+        {
+          path: 'orders/:id',
+          name: 'user-order-detail',
+          component: () => import('@/domain/user/views/UserOrderDetailView.vue')
+        },
+        {
+          path: 'wishlist',
+          name: 'user-wishlist',
+          component: () => import('@/domain/user/views/UserWishListView.vue')
+        },
+        {
+          path: 'reviews',
+          name: 'user-reviews',
+          component: () => import('@/domain/user/views/UserProfileView.vue') // TODO: Crear vista de reviews
+        }
+      ]
+    },
   ],
 })
 

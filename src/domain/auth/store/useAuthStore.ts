@@ -1,4 +1,12 @@
-//maneja token, refresh token, usuario, persistencia, restauración, expiración y refresco automático, roles.
+// Store de autenticación: Single Source of Truth para el usuario autenticado
+// Responsabilidades:
+// - Gestionar token JWT, refresh token y sesión
+// - Persistir y restaurar usuario en localStorage
+// - Manejar login, logout y refresco de token
+// - Proveer información de roles y estado de autenticación
+//
+// IMPORTANTE: Este es el ÚNICO lugar donde se almacena el usuario autenticado.
+// Otros dominios (user, admin, etc.) deben consumir este store, NO duplicar el estado.
 
 import { defineStore } from 'pinia'
 import { v4 as uuidv4 } from 'uuid'
