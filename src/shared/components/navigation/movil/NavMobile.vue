@@ -12,6 +12,13 @@
         <div class="nav__right-icons">
           <button
             class="icon-btn-nav-movil"
+            aria-label="Lista de deseos"
+            @click="handleSectionMobile('wishlist')"
+          >
+            ❤️
+          </button>
+          <button
+            class="icon-btn-nav-movil"
             aria-label="Carrito"
             @click="handleSectionMobile('cart')"
           >

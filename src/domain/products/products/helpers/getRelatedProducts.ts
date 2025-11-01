@@ -1,5 +1,6 @@
 import type { ProductInterface } from '../interface/ProductsInterface'
 import { filterProductsByCategory } from './filterByCategory'
+import { adaptProductId } from '@/shared/helpers'
 
 export const getRelatedProducts = (
   allProducts: ProductInterface[] | null | undefined,
@@ -11,6 +12,7 @@ export const getRelatedProducts = (
   const filtered = filterProductsByCategory(allProducts, currentProduct.category.slug)
 
   return filtered
+    .map(adaptProductId)
     .filter((product) => product.id !== currentProduct.id)
     .slice(0, maxResults)
 }

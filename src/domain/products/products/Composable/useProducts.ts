@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { productsApi } from '../api/productsApi'
 import type { ProductInterface } from '../interface/ProductsInterface'
+import { adaptProductId } from '@/shared/helpers'
 import { PRODUCTS_CONFIG } from '../../config'
 
 export function useProducts() {
@@ -8,7 +9,8 @@ export function useProducts() {
     queryKey: PRODUCTS_CONFIG.api.queryKeys.all,
     queryFn: async (): Promise<ProductInterface[]> => {
       const response = await productsApi.getAll();
-      return response.data;
+      // Adaptar todos los IDs a string para consistencia
+      return response.data.map(product => adaptProductId(product));
     },
     staleTime: PRODUCTS_CONFIG.cache.staleTime,
     gcTime: PRODUCTS_CONFIG.cache.gcTime,

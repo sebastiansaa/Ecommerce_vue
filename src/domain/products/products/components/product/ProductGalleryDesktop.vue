@@ -1,6 +1,9 @@
 <template>
   <div class="product-gallery-desktop">
     <div v-if="images && images.length" class="gallery-main">
+      <div class="wishlist-btn-wrapper" v-if="product">
+        <AddToWishListButton :product="product" />
+      </div>
       <img :src="images[selected]" alt="Imagen principal" class="main-image" />
     </div>
     <div v-if="images && images.length > 1" class="gallery-thumbnails">
@@ -19,8 +22,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { PRODUCTS_CONFIG } from '@/domain/products/config/products.config'
+import { AddToWishListButton } from '@/domain/products/WishList'
+import type { ProductInterface } from '../../interface'
 
-const props = defineProps<{ images: string[] }>()
+const props = defineProps<{ images: string[]; product?: ProductInterface }>()
 const selected = ref(0)
 </script>
 
@@ -37,6 +42,14 @@ const selected = ref(0)
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.wishlist-btn-wrapper {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
 }
 
 .main-image {

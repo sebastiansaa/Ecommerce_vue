@@ -1,9 +1,9 @@
 // Interfaz de usuario autenticado
 export interface User {
-  id: number
+  id: string
   email: string
   name: string
-  role: string // 'customer', 'admin', etc.
+  role: string
   avatar?: string
   password?: string
 }

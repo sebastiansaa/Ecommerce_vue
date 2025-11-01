@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { productsApi } from '../api/productsApi'
 import type { ProductInterface } from '../interface/ProductsInterface'
+import { adaptProductId } from '@/shared/helpers'
 import { PRODUCTS_CONFIG } from '../../config'
 import { computed, unref, type Ref, type ComputedRef } from 'vue'
 
@@ -12,7 +13,8 @@ export function useProductById(id: number | Ref<number> | ComputedRef<number>) {
     queryFn: async (): Promise<ProductInterface> => {
       try {
         const response = await productsApi.getById(idValue.value);
-        return response.data;
+        // Adaptar el producto para que el id siempre sea string
+        return adaptProductId(response.data);
       } catch (error: any) {
         // Agregar logging específico para errores
         console.error(`Error fetching product ${idValue.value}:`, error);

@@ -2,8 +2,8 @@
 
 // Interface principal para una review
 export interface Review {
-    id: string
-    productId: number
+    id: string // UII (UUID)
+    productId: string // UII (UUID)
     userName: string
     rating: number // 1-5
     comment: string
@@ -37,7 +37,7 @@ export interface ReviewFilters {
 
 // Interface para crear una nueva review
 export interface CreateReviewRequest {
-    productId: number
+    productId: string // UII (UUID)
     rating: number
     comment: string
     userName: string

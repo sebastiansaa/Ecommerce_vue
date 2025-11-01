@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { ProductInterface } from '@/domain/products/products/interface/ProductsInterface'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { axiosAutherizedAdapter } from '@/shared/api/axiosAuthorizedAdapter'
+import { getUuidForId } from '@/shared/helpers'
 
 export interface PurchaseRecord {
   userId: string
@@ -19,7 +20,8 @@ export const usePaymentStore = defineStore('payment', {
   actions: {
     addPurchase(record: Omit<PurchaseRecord, 'userId'>) {
       const authStore = useAuthStore();
-      const userId = authStore.user?.id || 'anon';
+      let userId = authStore.user?.id || 'anon';
+      if (typeof userId === 'number') userId = getUuidForId(userId);
       const fullRecord: PurchaseRecord = { ...record, userId };
       this.purchases.push(fullRecord);
       this.lastPurchase = fullRecord;
@@ -50,7 +52,8 @@ export const usePaymentStore = defineStore('payment', {
     async fetchFromBackend() {
       try {
         const authStore = useAuthStore();
-        const userId = authStore.user?.id;
+        let userId = authStore.user?.id;
+        if (typeof userId === 'number') userId = getUuidForId(userId);
         if (!userId) return;
         const { data } = await axiosAutherizedAdapter.get(`/user/${userId}/purchases`);
         this.purchases = data as PurchaseRecord[];
@@ -64,7 +67,9 @@ export const usePaymentStore = defineStore('payment', {
   getters: {
     userPurchases: (state) => {
       const authStore = useAuthStore()
-      return state.purchases.filter(p => p.userId === authStore.user?.id)
+      let userId = authStore.user?.id;
+      if (typeof userId === 'number') userId = getUuidForId(userId);
+      return state.purchases.filter(p => p.userId === userId)
     }
   }
 })

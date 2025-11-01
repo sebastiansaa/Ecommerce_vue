@@ -9,7 +9,7 @@ import ReviewMainDesktop from './ReviewMainDesktop.vue'
 import ReviewMainMobile from './ReviewMainMobile.vue'
 
 interface Props {
-  productId: number
+  productId: string
 }
 
 defineProps<Props>()

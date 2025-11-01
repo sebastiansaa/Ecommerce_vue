@@ -17,6 +17,12 @@
       >
       <IconButton
         class="icon-btn-nav-desktop"
+        aria-label="Lista de deseos"
+        @click="handleSectionDesktop('wishlist')"
+        >❤️</IconButton
+      >
+      <IconButton
+        class="icon-btn-nav-desktop"
         aria-label="Carrito"
         @click="handleSectionDesktop('cart')"
         >🛒</IconButton

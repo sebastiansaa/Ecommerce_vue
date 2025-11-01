@@ -1,7 +1,11 @@
 <template>
   <div class="product-main-desktop">
     <div class="gallery-section">
-      <ProductGallery :images="product.images" :description="product.description" />
+      <ProductGallery
+        :images="product.images"
+        :description="product.description"
+        :product="product"
+      />
     </div>
     <div class="details-section">
       <ProductDescription :product="product" />

@@ -1,4 +1,5 @@
 import type { ProductInterface } from '../interface/ProductsInterface'
+import { adaptProductId } from '@/shared/helpers'
 
 /**
  * Validar si un ID de producto es válido
@@ -68,7 +69,7 @@ export function createSafeProductRoute(product: ProductInterface) {
     name: 'ProductDetail',
     params: {
       category: product.category.slug || 'productos',
-      id: product.id.toString(),
+      id: String(product.id),
     },
   }
 }

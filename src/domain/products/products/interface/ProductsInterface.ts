@@ -2,7 +2,7 @@ import type { CategoryInterface } from "./CategoryInterface";
 
 
 export interface ProductInterface {
-  id: number;
+  id: string; // UII (UUID)
   title: string;
   slug: string;
   price: number;

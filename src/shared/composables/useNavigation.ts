@@ -49,6 +49,9 @@ export function useNavigation() {
       case 'cart':
         router.push('/cart');
         break;
+      case 'wishlist':
+        router.push('/wishlist');
+        break;
       case 'search':
         router.push('/search');
         break;

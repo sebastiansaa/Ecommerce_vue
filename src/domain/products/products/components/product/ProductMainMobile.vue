@@ -3,7 +3,11 @@ border-box; margin: 0 auto; }
 <template>
   <div class="product-main-mobile">
     <div class="gallery-section">
-      <ProductGallery :images="product.images" :description="product.description" />
+      <ProductGallery
+        :images="product.images"
+        :description="product.description"
+        :product="product"
+      />
     </div>
     <div class="details-section">
       <div class="actions-section">

@@ -6,12 +6,15 @@
 
 <script setup lang="ts">
 import type { ProductInterface } from '@/domain/products/products/interface/ProductsInterface'
+import { useRouter } from 'vue-router'
 
-defineProps<{ product: ProductInterface }>()
+const props = defineProps<{ product: ProductInterface }>()
+const router = useRouter()
 
 function onAddToCart() {
-  // Aquí irá la lógica para agregar al carrito
-  alert('Producto agregado al carrito (demo)')
+  // TODO: Implementar lógica de carrito de compras
+  console.log('Agregar al carrito:', props.product)
+  router.push('/cart')
 }
 </script>
 

@@ -1,5 +1,5 @@
 export interface CategoryInterface {
-  id: number;
+  id: string; // UII (UUID)
   name: string;  //nos dice la categoria
   slug: string;
   image: string;
