@@ -1,22 +1,17 @@
 <template>
   <div class="orders-list">
-    <UserOrdersListDesktop
-      v-if="isDesktop"
-      :orders="orders"
-      :is-loading="isLoading"
-      :error="error"
-    />
-    <UserOrdersListMobile v-else :orders="orders" :is-loading="isLoading" :error="error" />
+    <OrdersListDesktop v-if="isDesktop" :orders="orders" :is-loading="isLoading" :error="error" />
+    <OrdersListMobile v-else :orders="orders" :is-loading="isLoading" :error="error" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { getUserOrders } from '@/domain/user/services/orderService'
+import { getUserOrders } from '@/domain/order/services/orderService'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { useBreakpoints } from '@/shared/composables'
-import UserOrdersListDesktop from './UserOrdersListDesktop.vue'
-import UserOrdersListMobile from './UserOrdersListMobile.vue'
+import OrdersListDesktop from './OrdersListDesktop.vue'
+import OrdersListMobile from './OrdersListMobile.vue'
 
 const authStore = useAuthStore()
 const userId = authStore.user?.id

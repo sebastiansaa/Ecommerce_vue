@@ -2,7 +2,7 @@
   <div class="user-button-wrapper" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <!-- Usuario NO logueado -->
     <IconButton v-if="!user" class="icon-btn-nav-desktop" aria-label="Login" @click="goToLogin">
-      👤
+      <UserIcon class="user-icon" />
     </IconButton>
 
     <!-- Usuario logueado -->
@@ -18,6 +18,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { IconButton } from '@/shared/components/ui/actions/buttons'
+import { UserIcon } from '@heroicons/vue/24/outline'
 
 const emit = defineEmits<{
   'toggle-menu': []
@@ -59,6 +60,11 @@ function handleMouseLeave() {
 <style scoped>
 .user-button-wrapper {
   position: relative;
+}
+
+.user-icon {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .user-button {

@@ -7,7 +7,7 @@
         <div class="drawer-header">
           <h3 class="drawer-title">{{ $t('user.menu.title', 'Mi Cuenta') }}</h3>
           <button class="drawer-close" @click="$emit('update:isOpen', false)" aria-label="Cerrar">
-            ✕
+            <XMarkIcon class="icon-close" />
           </button>
         </div>
 
@@ -18,15 +18,15 @@
             <h4 class="column-title">{{ $t('user.menu.shopping', 'Compras') }}</h4>
             <nav class="menu-list">
               <button class="menu-item" @click="navigateTo('wishlist')">
-                <span class="menu-icon">❤️</span>
+                <HeartIcon class="menu-icon" />
                 <span class="menu-text">{{ $t('user.menu.wishlist', 'Lista de Deseos') }}</span>
               </button>
               <button class="menu-item" @click="navigateTo('cart')">
-                <span class="menu-icon">🛒</span>
+                <ShoppingCartIcon class="menu-icon" />
                 <span class="menu-text">{{ $t('user.menu.cart', 'Carrito de Compras') }}</span>
               </button>
               <button class="menu-item" @click="navigateTo('clothes')">
-                <span class="menu-icon">👗</span>
+                <SparklesIcon class="menu-icon" />
                 <span class="menu-text">{{ $t('user.menu.discover', 'Encuentra Más') }}</span>
               </button>
             </nav>
@@ -37,15 +37,15 @@
             <h4 class="column-title">{{ $t('user.menu.account', 'Mi Cuenta') }}</h4>
             <nav class="menu-list">
               <button class="menu-item" @click="navigateTo('account')">
-                <span class="menu-icon">👤</span>
+                <UserIcon class="menu-icon" />
                 <span class="menu-text">{{ $t('user.menu.profile', 'Cuenta') }}</span>
               </button>
               <button class="menu-item" @click="navigateTo('user-orders')">
-                <span class="menu-icon">📦</span>
+                <ShoppingBagIcon class="menu-icon" />
                 <span class="menu-text">{{ $t('user.menu.orders', 'Pedidos Realizados') }}</span>
               </button>
               <button class="menu-item" @click="navigateTo('user-reviews')">
-                <span class="menu-icon">⭐</span>
+                <StarIcon class="menu-icon" />
                 <span class="menu-text">{{ $t('user.menu.reviews', 'Reseñas') }}</span>
               </button>
             </nav>
@@ -55,7 +55,7 @@
         <!-- Footer: Logout -->
         <div class="drawer-footer">
           <button class="logout-button" @click="handleLogout">
-            <span class="logout-icon">🚪</span>
+            <ArrowRightOnRectangleIcon class="logout-icon" />
             <span class="logout-text">{{ $t('user.menu.logout', 'Cerrar Sesión') }}</span>
           </button>
         </div>
@@ -67,6 +67,16 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
+import {
+  HeartIcon,
+  ShoppingCartIcon,
+  SparklesIcon,
+  UserIcon,
+  ShoppingBagIcon,
+  StarIcon,
+  ArrowRightOnRectangleIcon,
+  XMarkIcon,
+} from '@heroicons/vue/24/outline'
 
 const props = defineProps<{
   isOpen: boolean
@@ -151,7 +161,6 @@ function handleLogout() {
 .drawer-close {
   background: none;
   border: none;
-  font-size: 1.5rem;
   cursor: pointer;
   color: #666;
   padding: 0.25rem;
@@ -162,6 +171,11 @@ function handleLogout() {
   align-items: center;
   justify-content: center;
   transition: background 0.2s ease;
+}
+
+.icon-close {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .drawer-close:hover {
@@ -219,8 +233,10 @@ function handleLogout() {
 }
 
 .menu-icon {
-  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
   flex-shrink: 0;
+  color: #666;
 }
 
 .menu-text {
@@ -263,7 +279,8 @@ function handleLogout() {
 }
 
 .logout-icon {
-  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 /* Transitions */

@@ -48,8 +48,8 @@ import { SearchBar } from '@/domain/products/search/components'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import NavDesktopCat from './NavDesktopCat.vue'
-import UserButton from '../UserButton.vue'
-import UserMenuDrawer from '../UserMenuDrawer.vue'
+import UserButton from '@/domain/user/components/UserButton.vue'
+import UserMenuDrawer from '@/domain/user/components/UserMenuDrawer.vue'
 import { useNavigation } from '@/shared/composables'
 
 const router = useRouter()
@@ -71,7 +71,6 @@ function handleUserMenuHover(isEntering) {
       isUserMenuOpen.value = true
     }, 200)
   } else {
-    // No cerrar automáticamente al salir, dejar que el usuario cierre manualmente
     clearTimeout(hoverTimeout)
   }
 }

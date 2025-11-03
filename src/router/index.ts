@@ -66,28 +66,24 @@ const router = createRouter({
     {
       path: '/user',
       name: 'user',
-      component: () => import('@/domain/user/views/UserProfileView.vue'),
+      component: () => import('@/domain/account/views/AccountView.vue'),
       children: [
         {
           path: 'orders',
           name: 'user-orders',
-          component: () => import('@/domain/user/views/UserOrdersView.vue')
+          component: () => import('@/domain/order/views/OrdersView.vue')
         },
         {
           path: 'orders/:id',
           name: 'user-order-detail',
-          component: () => import('@/domain/user/views/UserOrderDetailView.vue')
+          component: () => import('@/domain/order/views/OrderDetailView.vue')
         },
         {
           path: 'wishlist',
           name: 'user-wishlist',
-          component: () => import('@/domain/user/views/UserWishListView.vue')
+          component: () => import('@/domain/products/WishList/views/WishListView.vue')
         },
-        {
-          path: 'reviews',
-          name: 'user-reviews',
-          component: () => import('@/domain/user/views/UserProfileView.vue') // TODO: Crear vista de reviews
-        }
+        // Ruta de reviews eliminada, la vista de usuario está en account
       ]
     },
     {

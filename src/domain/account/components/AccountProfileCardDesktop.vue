@@ -1,5 +1,5 @@
 <template>
-  <div class="user-profile-card-mobile">
+  <div class="account-profile-card-desktop">
     <div v-if="user" class="profile-container">
       <div class="avatar-section">
         <img v-if="user.avatar" :src="user.avatar" alt="Avatar" class="avatar" />
@@ -8,23 +8,27 @@
         </div>
       </div>
       <div class="info-section">
-        <h2 class="user-name">{{ formatUserName(user) }}</h2>
-        <p class="user-email">{{ formatUserEmail(user) }}</p>
-        <span class="user-role">{{ getUserRoleLabel(user) }}</span>
+        <div class="info-main">
+          <h2 class="user-name">{{ formatUserName(user) }}</h2>
+          <p class="user-email">{{ formatUserEmail(user) }}</p>
+        </div>
+        <div class="info-meta">
+          <span class="user-role">{{ getUserRoleLabel(user) }}</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { UserProfile } from '@/domain/user/interface'
 import { formatUserName, formatUserEmail, getUserRoleLabel } from '@/domain/user/helpers'
+import type { User } from '@/domain/auth/interface/User'
 
 defineProps<{
-  user: UserProfile | null
+  user: User | null
 }>()
 
-function getInitials(user: UserProfile) {
+function getInitials(user: User) {
   const name = user.name || user.email
   return name
     .split(' ')
@@ -36,25 +40,23 @@ function getInitials(user: UserProfile) {
 </script>
 
 <style scoped>
-.user-profile-card-mobile {
+.account-profile-card-desktop {
   width: 100%;
-  padding: 1rem;
+  max-width: 600px;
 }
 
 .profile-container {
   background: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  text-align: center;
+  gap: 2rem;
 }
 
 .avatar-section {
-  margin-bottom: 0.5rem;
+  flex-shrink: 0;
 }
 
 .avatar {
@@ -83,15 +85,21 @@ function getInitials(user: UserProfile) {
 }
 
 .info-section {
-  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
+}
+
+.info-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .user-name {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 600;
   color: #333;
 }
@@ -99,13 +107,17 @@ function getInitials(user: UserProfile) {
 .user-email {
   margin: 0;
   color: #666;
-  font-size: 0.95rem;
+  font-size: 1rem;
+}
+
+.info-meta {
+  display: flex;
+  align-items: center;
 }
 
 .user-role {
   display: inline-block;
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   border-radius: 1.5rem;

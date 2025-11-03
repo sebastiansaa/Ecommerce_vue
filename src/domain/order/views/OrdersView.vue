@@ -1,15 +1,15 @@
 <template>
-  <div class="user-orders-view">
-    <UserOrdersList />
+  <div class="orders-view">
+    <OrdersList />
   </div>
 </template>
 
 <script setup lang="ts">
-import UserOrdersList from '../components/UserOrdersList.vue'
+import OrdersList from '../components/OrdersList.vue'
 </script>
 
 <style scoped>
-.user-orders-view {
+.orders-view {
   display: flex;
   flex-direction: column;
   align-items: center;

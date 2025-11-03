@@ -1,22 +1,17 @@
 <template>
   <div class="order-detail">
-    <UserOrderDetailDesktop
-      v-if="isDesktop"
-      :order="order"
-      :is-loading="isLoading"
-      :error="error"
-    />
-    <UserOrderDetailMobile v-else :order="order" :is-loading="isLoading" :error="error" />
+    <OrderDetailDesktop v-if="isDesktop" :order="order" :is-loading="isLoading" :error="error" />
+    <OrderDetailMobile v-else :order="order" :is-loading="isLoading" :error="error" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { getOrderDetail } from '@/domain/user/services/orderService'
+import { getOrderDetail } from '@/domain/order/services/orderService'
 import { useRoute } from 'vue-router'
 import { useBreakpoints } from '@/shared/composables'
-import UserOrderDetailDesktop from './UserOrderDetailDesktop.vue'
-import UserOrderDetailMobile from './UserOrderDetailMobile.vue'
+import OrderDetailDesktop from './OrderDetailDesktop.vue'
+import OrderDetailMobile from './OrderDetailMobile.vue'
 
 const route = useRoute()
 const orderId = route.params.id as string

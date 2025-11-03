@@ -1,4 +1,4 @@
-export interface UserOrder {
+export interface Order {
   id: string
   createdAt: string
   total: number

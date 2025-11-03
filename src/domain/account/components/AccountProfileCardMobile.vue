@@ -1,5 +1,5 @@
 <template>
-  <div class="user-profile-card-desktop">
+  <div class="account-profile-card-mobile">
     <div v-if="user" class="profile-container">
       <div class="avatar-section">
         <img v-if="user.avatar" :src="user.avatar" alt="Avatar" class="avatar" />
@@ -8,27 +8,23 @@
         </div>
       </div>
       <div class="info-section">
-        <div class="info-main">
-          <h2 class="user-name">{{ formatUserName(user) }}</h2>
-          <p class="user-email">{{ formatUserEmail(user) }}</p>
-        </div>
-        <div class="info-meta">
-          <span class="user-role">{{ getUserRoleLabel(user) }}</span>
-        </div>
+        <h2 class="user-name">{{ formatUserName(user) }}</h2>
+        <p class="user-email">{{ formatUserEmail(user) }}</p>
+        <span class="user-role">{{ getUserRoleLabel(user) }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { User } from '@/domain/auth/interface/User'
 import { formatUserName, formatUserEmail, getUserRoleLabel } from '@/domain/user/helpers'
-import type { AccountProfile } from '@/domain/account/interface/AccountProfile'
 
 defineProps<{
-  user: AccountProfile | null
+  user: User | null
 }>()
 
-function getInitials(user: AccountProfile) {
+function getInitials(user: User) {
   const name = user.name || user.email
   return name
     .split(' ')
@@ -40,23 +36,25 @@ function getInitials(user: AccountProfile) {
 </script>
 
 <style scoped>
-.user-profile-card-desktop {
+.account-profile-card-mobile {
   width: 100%;
-  max-width: 600px;
+  padding: 1rem;
 }
 
 .profile-container {
   background: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+  text-align: center;
 }
 
 .avatar-section {
-  flex-shrink: 0;
+  margin-bottom: 0.5rem;
 }
 
 .avatar {
@@ -85,21 +83,15 @@ function getInitials(user: AccountProfile) {
 }
 
 .info-section {
-  flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.info-main {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .user-name {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #333;
 }
@@ -107,17 +99,13 @@ function getInitials(user: AccountProfile) {
 .user-email {
   margin: 0;
   color: #666;
-  font-size: 1rem;
-}
-
-.info-meta {
-  display: flex;
-  align-items: center;
+  font-size: 0.95rem;
 }
 
 .user-role {
   display: inline-block;
-  padding: 0.5rem 1.25rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   border-radius: 1.5rem;
