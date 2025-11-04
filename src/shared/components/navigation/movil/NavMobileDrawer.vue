@@ -12,7 +12,7 @@
         </BaseButton>
       </div>
       <div class="nav__mobile-group nav__mobile-group--actions">
-        <BaseButton class="base-btn-nav-movil" @click="handleSectionMobile('login')">{{
+        <BaseButton class="base-btn-nav-movil" @click="handleAccountMobile">{{
           t('account')
         }}</BaseButton>
         <BaseButton class="base-btn-nav-movil" @click="handleSectionMobile('stores')">{{
@@ -32,8 +32,9 @@ import { useI18n } from 'vue-i18n'
 import Drawer from '@/shared/components/ui/display/Drawer.vue'
 import BaseButton from '@/shared/components/ui/actions/buttons/BaseButton.vue'
 import { useNavigation } from '@/shared/composables'
-
+import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { categories } from '@/shared/helpers/categories'
+
 const props = defineProps({
   isOpen: Boolean,
 })
@@ -55,6 +56,15 @@ function handleSectionMobile(section: string) {
   emit('update:isOpen', false)
 }
 
+function handleAccountMobile() {
+  const authStore = useAuthStore()
+  if (authStore.isAuthenticated) {
+    handleSectionMobile('account')
+  } else {
+    handleSectionMobile('login')
+  }
+}
+
 function updateIsOpen(value: boolean) {
   emit('update:isOpen', value)
 }
@@ -62,7 +72,7 @@ function updateIsOpen(value: boolean) {
 
 <style scoped>
 .nav__mobile-menu--under-nav {
-  margin-top: calc(56px + 64px); /* Nav (56px) + SearchBar (~64px) */
+  margin-top: calc(56px + 64px);
   background: var(--color-background);
   width: 100vw;
   min-height: calc(100vh - 56px - 64px);
@@ -71,7 +81,7 @@ function updateIsOpen(value: boolean) {
   top: 0;
   position: fixed;
   z-index: 100;
-  padding-top: 1rem; /* Gap interno en vez de margin */
+  padding-top: 1rem;
 }
 .nav__mobile-group {
   display: flex;

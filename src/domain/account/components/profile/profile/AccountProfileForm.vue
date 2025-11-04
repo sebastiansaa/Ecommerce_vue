@@ -27,7 +27,7 @@ import { z } from 'zod'
 import { updateProfile } from '@/domain/account/services/accountService'
 import { useMutation } from '@tanstack/vue-query'
 import { useErrorHandler } from '@/shared/composables/useErrorHandler'
-import type { AccountProfile } from '@/domain/account/interface/AccountProfile'
+import type { AccountProfile } from '@/domain/account/interfaces/AccountProfile'
 
 const authStore = useAuthStore()
 const user = authStore.user

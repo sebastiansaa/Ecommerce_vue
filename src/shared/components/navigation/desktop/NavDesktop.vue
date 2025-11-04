@@ -3,11 +3,9 @@
     <div class="nav__section nav__section--left">
       <LogoButton />
     </div>
-
     <div class="nav__section nav__section--center">
       <SearchBar />
     </div>
-
     <div class="nav__section nav__section--right">
       <!-- Botón de Usuario con Drawer -->
       <UserButton
@@ -15,19 +13,20 @@
         @mouse-enter="handleUserMenuHover(true)"
         @mouse-leave="handleUserMenuHover(false)"
       />
-
       <IconButton
         class="icon-btn-nav-desktop"
         aria-label="Lista de deseos"
         @click="handleSectionDesktop('wishlist')"
-        >❤️</IconButton
       >
+        <HeartIcon class="nav-icon" />
+      </IconButton>
       <IconButton
         class="icon-btn-nav-desktop"
         aria-label="Carrito"
         @click="handleSectionDesktop('cart')"
-        >🛒</IconButton
       >
+        <ShoppingBagIcon class="nav-icon" />
+      </IconButton>
       <div class="nav__section--lang">
         <button class="nav__lang-btn" @click="toggleLang">
           <span>{{ langText }}</span>
@@ -37,12 +36,12 @@
   </nav>
   <NavDesktopCat @select="handleCategory" />
 
-  <!-- User Menu Drawer -->
   <UserMenuDrawer v-model:is-open="isUserMenuOpen" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { HeartIcon, ShoppingBagIcon } from '@heroicons/vue/24/outline'
 import { IconButton, LogoButton } from '@/shared/components/ui/actions/buttons'
 import { SearchBar } from '@/domain/products/search/components'
 import { useRouter } from 'vue-router'
@@ -160,5 +159,13 @@ function handleUserMenuHover(isEntering) {
 }
 .nav__lang-btn:hover {
   background: #f0f0f0;
+}
+/* Icono para igualar estilo con AccountMenu */
+.nav-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

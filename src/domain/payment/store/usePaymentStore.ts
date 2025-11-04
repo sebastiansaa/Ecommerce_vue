@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type { ProductInterface } from '@/domain/products/products/interface/ProductsInterface'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { axiosAutherizedAdapter } from '@/shared/api/axiosAuthorizedAdapter'
-import { getUuidForId } from '@/shared/helpers'
+import { getUuidForId } from '@/domain/products/products/helpers/uuidMapper'
 
 export interface PurchaseRecord {
   userId: string

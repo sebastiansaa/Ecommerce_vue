@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import type { WishListItem } from '../interface/WishListItem'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
-import { getUuidForId, adaptProductId } from '@/shared/helpers'
+import { getUuidForId } from '@/domain/products/products/helpers/uuidMapper'
+import { adaptProductId } from '@/domain/products/products/helpers/adaptProduct'
 
 export const useWishListStore = defineStore('wishList', () => {
   const authStore = useAuthStore()

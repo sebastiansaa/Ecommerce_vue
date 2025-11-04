@@ -1,19 +1,9 @@
 <template>
-  <div class="account-view">
-    <AccountProfileForm />
-  </div>
+  <AccountSection />
 </template>
 
 <script setup lang="ts">
-import AccountProfileForm from '../components/AccountProfileForm.vue'
+import AccountSection from '../components/AccountSection.vue'
 </script>
 
-<style scoped>
-.account-view {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
-  padding: 2rem 0;
-}
-</style>
+<style scoped></style>

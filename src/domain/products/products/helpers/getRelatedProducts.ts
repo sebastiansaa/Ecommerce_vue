@@ -1,6 +1,6 @@
 import type { ProductInterface } from '../interface/ProductsInterface'
 import { filterProductsByCategory } from './filterByCategory'
-import { adaptProductId } from '@/shared/helpers'
+import { adaptProductId } from '@/domain/products/products/helpers/adaptProduct'
 
 export const getRelatedProducts = (
   allProducts: ProductInterface[] | null | undefined,

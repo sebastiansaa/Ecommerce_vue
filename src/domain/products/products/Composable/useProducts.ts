@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { productsApi } from '../api/productsApi'
 import type { ProductInterface } from '../interface/ProductsInterface'
-import { adaptProductId } from '@/shared/helpers'
+import { adaptProductId } from '@/domain/products/products/helpers/adaptProduct'
 import { PRODUCTS_CONFIG } from '../../config'
 
 export function useProducts() {

@@ -15,14 +15,14 @@
             aria-label="Lista de deseos"
             @click="handleSectionMobile('wishlist')"
           >
-            ❤️
+            <HeartIcon class="nav-icon" />
           </button>
           <button
             class="icon-btn-nav-movil"
             aria-label="Carrito"
             @click="handleSectionMobile('cart')"
           >
-            🛒
+            <ShoppingBagIcon class="nav-icon" />
           </button>
           <button class="nav__lang-btn" @click="toggleLang">
             <span>{{ langText }}</span>
@@ -48,6 +48,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { HeartIcon, ShoppingBagIcon } from '@heroicons/vue/24/outline'
 
 import { useNavigation } from '@/shared/composables'
 import { LogoButton } from '@/shared/components/ui/actions/buttons'
@@ -55,6 +56,7 @@ import { SearchBar } from '@/domain/products/search/components'
 import NavMobileDrawer from './NavMobileDrawer.vue'
 
 const { handleCategory, handleSection, toggleLang, langText } = useNavigation()
+
 const isOpen = ref(false)
 function handleCategoryMobile(category) {
   handleCategory(category, true)
@@ -209,5 +211,19 @@ function handleSectionMobile(section) {
   .nav__searchbar-mobile {
     display: none;
   }
+}
+.nav-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

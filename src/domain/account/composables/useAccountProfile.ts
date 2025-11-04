@@ -3,7 +3,7 @@ import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { updateProfile } from '@/domain/account/services/accountService'
 import { getProfile } from '@/domain/auth/services/getProfileService'
 import type { User } from '@/domain/auth/interface/User'
-import type { AccountProfile } from '@/domain/account/interface/AccountProfile'
+import type { AccountProfile } from '@/domain/account/interfaces/AccountProfile'
 
 export function useAccountProfile() {
     const authStore = useAuthStore()

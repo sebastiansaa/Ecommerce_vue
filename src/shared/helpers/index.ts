@@ -1,6 +1,6 @@
-export * from './adaptProduct'
+
 export * from './categories'
 export * from './changeCurrency'
 export * from './mapZodErrors'
 export * from './clearFields'
-export * from './uuidMapper'
+

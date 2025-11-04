@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import type { WishListItem } from '../interface/WishListItem'
 import { useProductNavigation } from '@/shared/composables/useProductNavigation'
-import { adaptProductId } from '@/shared/helpers'
+import { adaptProductId } from '@/domain/products/products/helpers/adaptProduct'
 import { computed } from 'vue'
 
 const props = defineProps<{ item: WishListItem }>()

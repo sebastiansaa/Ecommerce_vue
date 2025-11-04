@@ -9,15 +9,15 @@ const idToUuidMap = new Map<number, string>();
  * @returns UUID string asociado
  */
 export function getUuidForId(idNum: number): string {
-    if (!idToUuidMap.has(idNum)) {
-        idToUuidMap.set(idNum, uuidv4());
-    }
-    return idToUuidMap.get(idNum)!;
+  if (!idToUuidMap.has(idNum)) {
+    idToUuidMap.set(idNum, uuidv4());
+  }
+  return idToUuidMap.get(idNum)!;
 }
 
 /**
  * (Opcional) Limpia el mapa de ids a UUIDs (por ejemplo, al cerrar sesión)
  */
 export function clearUuidMap() {
-    idToUuidMap.clear();
+  idToUuidMap.clear();
 }

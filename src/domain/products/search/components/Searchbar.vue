@@ -2,7 +2,7 @@
   <div class="searchbar">
     <div class="searchbar__container">
       <IconButton class="searchbar__icon-search" aria-label="Buscar" @click="handleSearch">
-        🔍
+        <MagnifyingGlassIcon class="searchbar__icon-svg" />
       </IconButton>
 
       <input
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { IconButton } from '@/shared/components/ui/actions/buttons'
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
 import { Drawer } from '@/shared/components/ui/display'
 import { SearchHistory, SearchSuggestions, SearchResults } from '.'
 import { useSuggestion } from '../Composable'
@@ -206,6 +207,13 @@ const closeResults = () => {
   max-height: 400px;
   overflow-y: auto;
   z-index: 100;
+}
+.searchbar__icon-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {

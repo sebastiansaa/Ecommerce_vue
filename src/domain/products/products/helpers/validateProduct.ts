@@ -1,5 +1,5 @@
 import type { ProductInterface } from '../interface/ProductsInterface'
-import { adaptProductId } from '@/shared/helpers'
+import { adaptProductId } from '@/domain/products/products/helpers/adaptProduct'
 
 /**
  * Validar si un ID de producto es válido

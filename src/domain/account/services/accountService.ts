@@ -1,6 +1,6 @@
 
 import { API_BASE_URL } from '@/shared/api/api'
-import type { AccountProfile } from '@/domain/account/interface/AccountProfile'
+import type { AccountProfile } from '@/domain/account/interfaces/AccountProfile'
 import axios from 'axios'
 
 export async function updateProfile(user: AccountProfile): Promise<AccountProfile> {
