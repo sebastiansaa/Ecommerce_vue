@@ -1,7 +1,6 @@
 import AccountProfileCard from './profile/AccountProfileCard.vue'
-import PaymentMethodsContainer from '@/domain/payment/components/PaymentMethodsContainer.vue'
+import PaymentMethodsContainer from '@/domain/payment/components/method/PaymentMethodsContainer.vue'
 import SecurityContainer from '../security/SecurityContainer.vue'
-import AccountInfoContainer from '../account-info/AccountInfoContainer.vue'
 import AddressContainer from '../account-info/address/AddressContainer.vue'
 
 export const profileGridOptions =
@@ -11,12 +10,6 @@ export const profileGridOptions =
       label: 'Tu información',
       description: 'Nombre y datos personales',
       component: AccountProfileCard,
-    },
-    {
-      key: 'edit',
-      label: 'Datos de cuenta',
-      description: 'Email y contraseña',
-      component: AccountInfoContainer,
     },
     {
       key: 'cards',

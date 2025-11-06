@@ -2,13 +2,13 @@
   <nav class="account-menu-desktop">
     <ul>
       <li v-for="item in menuItems" :key="item.key">
-        <button
-          :class="['menu-btn', { active: item.key === modelValue }]"
+        <BaseAccountButton
+          :customClass="item.key === modelValue ? 'menu-btn active' : 'menu-btn'"
           @click="$emit('update:modelValue', item.key)"
         >
           <span class="menu-icon"><component :is="item.icon" /></span>
           <span class="menu-label">{{ item.label }}</span>
-        </button>
+        </BaseAccountButton>
       </li>
     </ul>
   </nav>
@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue'
 import { UserIcon, ShoppingBagIcon, HeartIcon, LockClosedIcon } from '@heroicons/vue/24/outline'
+import { BaseAccountButton } from '@/shared/components/ui/actions/buttons'
 
 const props = defineProps<{ modelValue: string }>()
 const emit = defineEmits(['update:modelValue'])

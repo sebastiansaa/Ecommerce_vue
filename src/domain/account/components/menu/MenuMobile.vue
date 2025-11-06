@@ -1,18 +1,18 @@
 <template>
   <nav class="tab-bar">
-    <button
+    <BaseAccountButton
       v-for="item in menuItems"
       :key="item.key"
-      :class="['tab-btn', { active: item.key === modelValue }]"
+      :customClass="item.key === modelValue ? 'tab-btn active' : 'tab-btn'"
       @click="$emit('update:modelValue', item.key)"
     >
       <span class="tab-icon"><component :is="item.icon" /></span>
       <span class="tab-label">{{ item.label }}</span>
-    </button>
-    <button class="tab-btn logout-btn" @click="handleLogout">
+    </BaseAccountButton>
+    <BaseAccountButton customClass="tab-btn logout-btn" @click="handleLogout">
       <span class="tab-icon"><ArrowRightOnRectangleIcon /></span>
       <span class="tab-label">{{ t('logout') }}</span>
-    </button>
+    </BaseAccountButton>
   </nav>
 </template>
 
@@ -28,6 +28,7 @@ import {
   ArrowRightOnRectangleIcon,
 } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
+import { BaseAccountButton } from '@/shared/components/ui/actions/buttons'
 
 const props = defineProps<{ modelValue: string }>()
 const emit = defineEmits(['update:modelValue'])

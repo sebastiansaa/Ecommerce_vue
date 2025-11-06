@@ -1,1 +1,2 @@
-// Punto de entrada para las interfaces del dominio payment
+export type { CreditCard } from './CreditCard'
+export type { PurchaseRecord } from './PurchaseRecord'

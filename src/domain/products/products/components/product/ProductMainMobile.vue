@@ -12,7 +12,6 @@ border-box; margin: 0 auto; }
     <div class="details-section">
       <div class="actions-section">
         <AddToCart :product="product" />
-        <BuyNow :product="product" />
       </div>
       <ProductDescription :product="product" />
     </div>
@@ -29,7 +28,6 @@ border-box; margin: 0 auto; }
 import { ProductDescription, ProductGallery, ProductRelated } from '.'
 import { ReviewMain } from '@/domain/products/reviews/components'
 import AddToCart from '@/domain/cart/components/AddToCart.vue'
-import BuyNow from '@/domain/payment/components/BuyNow.vue'
 import type { ProductInterface } from '../../interface'
 
 const props = defineProps<{ product: ProductInterface }>()

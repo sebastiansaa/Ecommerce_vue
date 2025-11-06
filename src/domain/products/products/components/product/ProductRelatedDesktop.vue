@@ -7,9 +7,9 @@
     </div>
 
     <div v-else-if="relatedProducts.length > 0" class="products-carousel">
-      <button class="carousel-arrow left" @click="prev" :disabled="currentIndex === 0">
+      <BaseProductButton class="carousel-arrow left" @click="prev" :disabled="currentIndex === 0">
         &#8592;
-      </button>
+      </BaseProductButton>
       <div class="carousel-items">
         <ProductCard
           v-for="product in visibleProducts"
@@ -19,13 +19,13 @@
           class="related-card"
         />
       </div>
-      <button
+      <BaseProductButton
         class="carousel-arrow right"
         @click="next"
         :disabled="currentIndex + visibleCount >= relatedProducts.length"
       >
         &#8594;
-      </button>
+      </BaseProductButton>
     </div>
 
     <div v-else class="no-products">
@@ -35,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import { BaseProductButton } from '@/shared/components/ui/actions/buttons'
 import { computed, ref } from 'vue'
 import { useProducts } from '../../Composable'
 import { getRelatedProducts } from '../../helpers'
@@ -108,25 +109,34 @@ function next() {
 }
 
 .carousel-arrow {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: v-bind('PRODUCTS_CONFIG.styles.borderRadius.button');
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: 1.5rem;
+  background: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: v-bind('PRODUCTS_CONFIG.styles.borderRadius.button') !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  min-width: 2.5rem !important;
+  max-width: 2.5rem !important;
+  font-size: 1.5rem !important;
   cursor: pointer;
   transition: background v-bind('PRODUCTS_CONFIG.styles.transitions.fast')
-    v-bind('PRODUCTS_CONFIG.styles.transitions.easing');
+    v-bind('PRODUCTS_CONFIG.styles.transitions.easing') !important;
   flex-shrink: 0;
+  padding: 0 !important;
+  color: #333 !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 .carousel-arrow:hover:not(:disabled) {
-  background: #f0f0f0;
+  background: #f0f0f0 !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 .carousel-arrow:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  background: #f5f5f5 !important;
 }
 
 .carousel-items {

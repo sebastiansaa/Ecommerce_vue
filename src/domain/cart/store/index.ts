@@ -1,1 +1,1 @@
-// Punto de entrada para el store del dominio admin
+export { useCartStore } from './useCartStore'

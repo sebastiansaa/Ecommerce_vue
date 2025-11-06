@@ -86,7 +86,12 @@ async function handleSubmit() {
     const user = await getProfile(access_token)
     authStore.setUser(user)
 
-    // 3. Redirigir al perfil de usuario
+    // 3. Fusionar carrito de invitado con carrito de usuario
+    const { useCartStore } = await import('@/domain/cart/store/useCartStore')
+    const cartStore = useCartStore()
+    await cartStore.mergeGuestCart()
+
+    // 4. Redirigir al perfil de usuario
     console.log('✅ Login successful, redirecting to /user')
     router.push({ name: 'user' })
   } catch (e: any) {

@@ -10,12 +10,7 @@
     <div class="details-section">
       <ProductDescription :product="product" />
       <div class="actions-section">
-        <div class="action-btn">
-          <AddToCart :product="product" />
-        </div>
-        <div class="action-btn">
-          <BuyNow :product="product" />
-        </div>
+        <AddToCart :product="product" />
       </div>
     </div>
     <div class="related-section">
@@ -31,7 +26,6 @@
 import { ProductDescription, ProductGallery, ProductRelated } from '.'
 import { ReviewMain } from '@/domain/products/reviews/components'
 import AddToCart from '@/domain/cart/components/AddToCart.vue'
-import BuyNow from '@/domain/payment/components/BuyNow.vue'
 import type { ProductInterface } from '../../interface'
 
 const props = defineProps<{ product: ProductInterface }>()

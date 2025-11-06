@@ -1,19 +1,27 @@
 <template>
   <div class="account-profile-card">
-    <AccountProfileCardDesktop v-if="isDesktop" :user="user" />
-    <AccountProfileCardMobile v-else :user="user" />
+    <!-- Si está en modo edición, muestra el formulario -->
+    <AccountProfileForm v-if="accountEdit.isEditing" @back="accountEdit.stopEditing()" />
+    <!-- Si no, muestra la vista normal y el botón Modificar -->
+    <div v-else>
+      <AccountProfileCardDesktop v-if="isDesktop" :user="user" />
+      <AccountProfileCardMobile v-else :user="user" />
+      <BaseAccountButton @click="accountEdit.startEditing('profile')">Modificar</BaseAccountButton>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { useBreakpoints } from '@/shared/composables'
-import AccountProfileCardDesktop from './AccountProfileCardDesktop.vue'
-import AccountProfileCardMobile from './AccountProfileCardMobile.vue'
+import { AccountProfileCardDesktop, AccountProfileCardMobile, AccountProfileForm } from './index'
+import { useAccountEditStore } from '@/domain/account/store/useAccountEditStore'
+import { BaseAccountButton } from '@/shared/components/ui/actions/buttons'
 
 const authStore = useAuthStore()
 const user = authStore.user
 
+const accountEdit = useAccountEditStore()
 const { isDesktop } = useBreakpoints()
 </script>
 

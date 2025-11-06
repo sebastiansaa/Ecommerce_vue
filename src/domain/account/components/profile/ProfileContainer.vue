@@ -3,13 +3,12 @@
     <div class="profile-grid" v-if="!selected">
       <ProfileGrid @select-option="handleSelect" />
     </div>
-    <ProfileDetailsSection v-else :selected-key="selected" @back="selected = null" />
+    <ProfileDetailsSection v-else :selected="selected" @back="selected = null" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { profileGridOptions } from './profileGridOptions'
 import ProfileGrid from './ProfileGrid.vue'
 import ProfileDetailsSection from './ProfileDetailsSection.vue'
 
@@ -17,11 +16,6 @@ const selected = ref<string | null>(null)
 
 function handleSelect(key: string) {
   selected.value = key
-}
-
-function getComponent(key: string) {
-  const found = profileGridOptions.find((opt) => opt.key === key)
-  return found ? found.component : null
 }
 </script>
 

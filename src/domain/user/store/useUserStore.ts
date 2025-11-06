@@ -13,35 +13,53 @@
 // pero están listas para usarse cuando se implemente una API propia más avanzada.
 
 import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-export const useUserStore = defineStore('user', {
-  state: () => ({
-    // UI: tab activo en la vista de usuario
-    activeTab: 'profile', // 'profile' | 'orders' | 'wishlist'
-    // Filtros de órdenes
-    orderStatusFilter: 'all', // 'all' | 'pending' | 'completed' | 'cancelled'
-    // Paginación de órdenes
-    ordersPage: 1,
-    ordersPageSize: 10,
-    // Preferencias de vista
-    showOrderDetails: false,
-    // Otros flags de UI o preferencias específicas del usuario
-  }),
-  actions: {
-    setActiveTab(tab: string) {
-      this.activeTab = tab
-    },
-    setOrderStatusFilter(status: string) {
-      this.orderStatusFilter = status
-    },
-    setOrdersPage(page: number) {
-      this.ordersPage = page
-    },
-    setOrdersPageSize(size: number) {
-      this.ordersPageSize = size
-    },
-    setShowOrderDetails(show: boolean) {
-      this.showOrderDetails = show
-    },
-  },
+export const useUserStore = defineStore('user', () => {
+  // State
+  // UI: tab activo en la vista de usuario
+  const activeTab = ref<string>('profile') // 'profile' | 'orders' | 'wishlist'
+  // Filtros de órdenes
+  const orderStatusFilter = ref<string>('all') // 'all' | 'pending' | 'completed' | 'cancelled'
+  // Paginación de órdenes
+  const ordersPage = ref<number>(1)
+  const ordersPageSize = ref<number>(10)
+  // Preferencias de vista
+  const showOrderDetails = ref<boolean>(false)
+
+  // Actions
+  function setActiveTab(tab: string) {
+    activeTab.value = tab
+  }
+
+  function setOrderStatusFilter(status: string) {
+    orderStatusFilter.value = status
+  }
+
+  function setOrdersPage(page: number) {
+    ordersPage.value = page
+  }
+
+  function setOrdersPageSize(size: number) {
+    ordersPageSize.value = size
+  }
+
+  function setShowOrderDetails(show: boolean) {
+    showOrderDetails.value = show
+  }
+
+  return {
+    // State
+    activeTab,
+    orderStatusFilter,
+    ordersPage,
+    ordersPageSize,
+    showOrderDetails,
+    // Actions
+    setActiveTab,
+    setOrderStatusFilter,
+    setOrdersPage,
+    setOrdersPageSize,
+    setShowOrderDetails
+  }
 })

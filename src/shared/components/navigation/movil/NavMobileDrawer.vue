@@ -2,25 +2,25 @@
   <Drawer :modelValue="isOpen" @update:modelValue="updateIsOpen">
     <div class="nav__mobile-menu nav__mobile-menu--under-nav">
       <div class="nav__mobile-group nav__mobile-group--categories">
-        <BaseButton
+        <BaseAccountButton
           v-for="cat in categories"
           :key="cat.key"
           class="base-btn-nav-movil"
           @click="handleCategoryMobile(cat.key)"
         >
           {{ t(cat.label) }}
-        </BaseButton>
+        </BaseAccountButton>
       </div>
       <div class="nav__mobile-group nav__mobile-group--actions">
-        <BaseButton class="base-btn-nav-movil" @click="handleAccountMobile">{{
+        <BaseAccountButton class="base-btn-nav-movil" @click="handleAccountMobile">{{
           t('account')
-        }}</BaseButton>
-        <BaseButton class="base-btn-nav-movil" @click="handleSectionMobile('stores')">{{
+        }}</BaseAccountButton>
+        <BaseAccountButton class="base-btn-nav-movil" @click="handleSectionMobile('stores')">{{
           t('ourStores')
-        }}</BaseButton>
-        <BaseButton class="base-btn-nav-movil" @click="handleSectionMobile('about')">{{
+        }}</BaseAccountButton>
+        <BaseAccountButton class="base-btn-nav-movil" @click="handleSectionMobile('about')">{{
           t('about')
-        }}</BaseButton>
+        }}</BaseAccountButton>
       </div>
     </div>
   </Drawer>
@@ -30,7 +30,7 @@
 import { defineProps, defineEmits } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Drawer from '@/shared/components/ui/display/Drawer.vue'
-import BaseButton from '@/shared/components/ui/actions/buttons/BaseButton.vue'
+import { BaseAccountButton } from '@/shared/components/ui/actions/buttons'
 import { useNavigation } from '@/shared/composables'
 import { useAuthStore } from '@/domain/auth/store/useAuthStore'
 import { categories } from '@/shared/helpers/categories'

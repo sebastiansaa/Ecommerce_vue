@@ -1,9 +1,12 @@
 <template>
   <div class="profile-details-section">
-    <button class="back-btn-outline" @click="$emit('back')">
-      <ArrowLeftIcon class="icon" />
-      Volver
-    </button>
+    <div class="profile-actions">
+      <BaseAccountButton @click="$emit('back')">
+        <ArrowLeftIcon class="icon" />
+        Volver
+      </BaseAccountButton>
+      <slot name="action" />
+    </div>
     <component :is="detailComponent" />
   </div>
 </template>
@@ -12,12 +15,13 @@
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { computed } from 'vue'
 import { profileGridOptions } from './profileGridOptions'
+import { BaseAccountButton } from '@/shared/components/ui/actions/buttons'
 
-const props = defineProps<{ selectedKey: string | null }>()
+const props = defineProps<{ selected: string | null }>()
 
 const detailComponent = computed(() => {
-  if (!props.selectedKey) return null
-  const found = profileGridOptions.find((opt) => opt.key === props.selectedKey)
+  if (!props.selected) return null
+  const found = profileGridOptions.find((opt) => opt.key === props.selected)
   return found ? found.component : null
 })
 </script>
@@ -29,22 +33,27 @@ const detailComponent = computed(() => {
   flex-direction: column;
   align-items: center;
 }
-.back-btn-outline {
+.profile-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.edit-btn-outline {
   background: none;
-  border: 2px solid #2d6cdf;
-  color: #2d6cdf;
+  border: 2px solid #22c55e;
+  color: #22c55e;
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem 1.2rem;
   border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   transition: border-color 0.2s;
 }
-.back-btn-outline:hover {
-  border-color: #1e40af;
+.edit-btn-outline:hover {
+  border-color: #16a34a;
 }
 .icon {
   width: 1.2em;

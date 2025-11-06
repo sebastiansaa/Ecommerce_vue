@@ -9,8 +9,10 @@
     <div v-else-if="error" class="error">
       <p v-if="is404Error">Producto no encontrado (ID: {{ productId }})</p>
       <p v-else>Error al cargar el producto</p>
-      <button @click="handleRetry">Reintentar</button>
-      <button @click="goToProducts" class="secondary">Ver todos los productos</button>
+      <BaseProductButton @click="handleRetry">Reintentar</BaseProductButton>
+      <BaseProductButton @click="goToProducts" customClass="secondary"
+        >Ver todos los productos</BaseProductButton
+      >
     </div>
 
     <!-- Success state -->
@@ -28,6 +30,7 @@ import { computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ProductMain from '../components/product/ProductMain.vue'
 import { useProductById } from '../Composable'
+import { BaseProductButton } from '@/shared/components/ui/actions/buttons'
 import { useErrorHandler } from '../../../../shared/composables'
 
 const route = useRoute()

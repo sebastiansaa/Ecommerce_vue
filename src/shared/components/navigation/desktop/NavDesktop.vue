@@ -36,7 +36,9 @@
   </nav>
   <NavDesktopCat @select="handleCategory" />
 
-  <UserMenuDrawer v-model:is-open="isUserMenuOpen" />
+  <teleport to="body">
+    <UserMenuDrawer v-model:is-open="isUserMenuOpen" />
+  </teleport>
 </template>
 
 <script setup>
@@ -63,7 +65,6 @@ function handleSectionDesktop(section) {
 }
 
 function handleUserMenuHover(isEntering) {
-  // Abrir el menú cuando el mouse entra (con un pequeño delay)
   if (isEntering) {
     clearTimeout(hoverTimeout)
     hoverTimeout = setTimeout(() => {

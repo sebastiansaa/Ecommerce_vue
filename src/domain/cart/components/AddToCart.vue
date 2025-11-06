@@ -1,19 +1,21 @@
 <template>
   <div class="add-to-cart">
-    <button class="add-to-cart__button" @click="onAddToCart">Agregar al carrito</button>
+    <BasePaymentButton @click="onAddToCart">Agregar al carrito</BasePaymentButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ProductInterface } from '@/domain/products/products/interface/ProductsInterface'
 import { useRouter } from 'vue-router'
+import { BasePaymentButton } from '@/shared/components/ui/actions/buttons'
+import { useCartStore } from '../store'
 
 const props = defineProps<{ product: ProductInterface }>()
 const router = useRouter()
+const cartStore = useCartStore()
 
 function onAddToCart() {
-  // TODO: Implementar lógica de carrito de compras
-  console.log('Agregar al carrito:', props.product)
+  cartStore.addToCart(props.product)
   router.push('/cart')
 }
 </script>

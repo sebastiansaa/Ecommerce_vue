@@ -38,7 +38,11 @@
 
       <!-- Botón cargar más -->
       <footer class="reviews-list-desktop__footer" v-if="hasMoreReviews">
-        <button @click="onLoadMore" :disabled="isLoading" class="reviews-list-desktop__load-more">
+        <BaseProductButton
+          @click="onLoadMore"
+          :disabled="isLoading"
+          customClass="reviews-list-desktop__load-more"
+        >
           <span v-if="!isLoading">Cargar más reseñas</span>
           <span v-else class="reviews-list-desktop__loading">
             <svg class="reviews-list-desktop__spinner" viewBox="0 0 24 24">
@@ -68,7 +72,7 @@
             </svg>
             Cargando...
           </span>
-        </button>
+        </BaseProductButton>
       </footer>
     </main>
   </div>
@@ -79,6 +83,7 @@ import { ref, computed } from 'vue'
 import { REVIEWS_CONFIG } from '../../config/reviews.config'
 import ReviewItem from './ReviewItem.vue'
 import type { Review } from '../interface'
+import { BaseProductButton } from '@/shared/components/ui/actions/buttons'
 
 interface Props {
   reviews: Review[]

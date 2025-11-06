@@ -9,146 +9,176 @@
 // Otros dominios (user, admin, etc.) deben consumir este store, NO duplicar el estado.
 
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type { User } from '../interface'
 
-export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    token: localStorage.getItem('auth_token') as string | null,
-    refreshToken: localStorage.getItem('refresh_token') as string | null,
-    user: JSON.parse(localStorage.getItem('auth_user') || 'null') as User | null,
-    sessionId: uuidv4() as string,
-  }),
+export const useAuthStore = defineStore('auth', () => {
+  // State
+  const token = ref<string | null>(localStorage.getItem('auth_token'))
+  const refreshToken = ref<string | null>(localStorage.getItem('refresh_token'))
+  const user = ref<User | null>(JSON.parse(localStorage.getItem('auth_user') || 'null'))
+  const sessionId = ref<string>(uuidv4())
 
-  actions: {
-    // Guarda el token de acceso en el estado y en localStorage
-    setToken(token: string) {
-      this.token = token
-      localStorage.setItem('auth_token', token)
-    },
-    // Guarda el refresh token en el estado y en localStorage
-    setRefreshToken(refreshToken: string) {
-      this.refreshToken = refreshToken
-      localStorage.setItem('refresh_token', refreshToken)
-    },
-    // Guarda el usuario autenticado en el estado y en localStorage
-    setUser(user: User) {
-      this.user = user
-      localStorage.setItem('auth_user', JSON.stringify(user))
-    },
-    // Restaura la sesión desde localStorage y verifica expiración del token
-    restoreSession() {
-      this.token = localStorage.getItem('auth_token')
-      this.refreshToken = localStorage.getItem('refresh_token')
-      this.user = JSON.parse(localStorage.getItem('auth_user') || 'null')
-      this.checkAndHandleTokenExpiration();
-    },
+  // Getters
+  const isAuthenticated = computed(() => !!token.value)
 
-    // Decodifica el JWT y retorna el payload (o null si no es válido)
-    decodeJwt(token: string | null): any {
-      if (!token) return null;
-      try {
-        const parts = token.split('.');
-        if (parts.length !== 3) return null;
-        const base64Url = parts[1];
-        if (!base64Url) return null;
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-      } catch (e) {
-        return null;
-      }
-    },
+  const isTokenExpired = computed(() => {
+    if (!token.value) return true
+    try {
+      const parts = token.value.split('.')
+      if (parts.length !== 3) return true
+      const base64Url = parts[1]
+      if (!base64Url) return true
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+          })
+          .join('')
+      )
+      const payload = JSON.parse(jsonPayload)
+      const now = Math.floor(Date.now() / 1000)
+      return payload.exp < now
+    } catch (e) {
+      return true
+    }
+  })
 
-    // Verifica si el token está expirado y actúa en consecuencia
-    checkAndHandleTokenExpiration() {
-      if (!this.token) return;
-      const payload = this.decodeJwt(this.token);
-      if (payload && payload.exp) {
-        const now = Math.floor(Date.now() / 1000);
-        if (payload.exp < now) {
-          // Token expirado
-          if (this.refreshToken) {
-            this.refreshAuthToken();
-          } else {
-            this.logout();
-          }
+  const hasRole = computed(() => (role: string) => user.value?.role === role)
+  const isAdmin = computed(() => user.value?.role === 'admin')
+  const isCustomer = computed(() => user.value?.role === 'customer')
+
+  // Actions
+  function setToken(newToken: string) {
+    token.value = newToken
+    localStorage.setItem('auth_token', newToken)
+  }
+
+  function setRefreshToken(newRefreshToken: string) {
+    refreshToken.value = newRefreshToken
+    localStorage.setItem('refresh_token', newRefreshToken)
+  }
+
+  function setUser(newUser: User) {
+    user.value = newUser
+    localStorage.setItem('auth_user', JSON.stringify(newUser))
+  }
+
+  function restoreSession() {
+    token.value = localStorage.getItem('auth_token')
+    refreshToken.value = localStorage.getItem('refresh_token')
+    user.value = JSON.parse(localStorage.getItem('auth_user') || 'null')
+    checkAndHandleTokenExpiration()
+  }
+
+  function decodeJwt(tokenStr: string | null): any {
+    if (!tokenStr) return null
+    try {
+      const parts = tokenStr.split('.')
+      if (parts.length !== 3) return null
+      const base64Url = parts[1]
+      if (!base64Url) return null
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+          })
+          .join('')
+      )
+      return JSON.parse(jsonPayload)
+    } catch (e) {
+      return null
+    }
+  }
+
+  function checkAndHandleTokenExpiration() {
+    if (!token.value) return
+    const payload = decodeJwt(token.value)
+    if (payload && payload.exp) {
+      const now = Math.floor(Date.now() / 1000)
+      if (payload.exp < now) {
+        // Token expirado
+        if (refreshToken.value) {
+          refreshAuthToken()
+        } else {
+          logout()
         }
       }
-    },
-    // Elimina toda la información de sesión y limpia localStorage
-    logout() {
-      this.token = null
-      this.refreshToken = null
-      this.user = null
-      this.sessionId = uuidv4()
-      localStorage.removeItem('auth_token')
-      localStorage.removeItem('refresh_token')
-      localStorage.removeItem('auth_user')
-    },
-    // Intenta refrescar el token de acceso usando el refresh token
-    async refreshAuthToken() {
-      //  asume que hay un endpoint /auth/refresh que acepta el refresh token. Hacerlo en el backend.
-      if (!this.refreshToken) return
-      try {
-        // Reemplaza esto por tu llamada real al backend
-        const response = await fetch('/auth/refresh', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ refreshToken: this.refreshToken })
-        })
-        const data = await response.json()
-        if (data.token) {
-          this.setToken(data.token)
-        }
-        if (data.refreshToken) {
-          this.setRefreshToken(data.refreshToken)
-        }
-      } catch (e) {
-        this.logout()
+    }
+  }
+
+  async function logout() {
+    // Limpiar carrito del usuario (opcional, o mantenerlo en el backend)
+    try {
+      const cartStore = await import('@/domain/cart/store/useCartStore')
+      if (cartStore.useCartStore) {
+        const cart = cartStore.useCartStore()
+        // Opcional: limpiar el carrito al cerrar sesión
+        // cart.clearCart()
+        // O simplemente recargar para que pase a modo invitado
+        cart.loadCart()
       }
-    },
-  },
+    } catch (error) {
+      console.error('Error handling cart on logout:', error)
+    }
 
-  getters: {
-    // Verifica si el usuario está autenticado
-    isAuthenticated: (state) => !!state.token,
+    localStorage.removeItem('auth_token')
+    localStorage.removeItem('refresh_token')
+    localStorage.removeItem('auth_user')
+    token.value = null
+    refreshToken.value = null
+    user.value = null
+  }
 
-    // Verifica si el token está expirado
-    isTokenExpired: (state) => {
-      if (!state.token) return true;
-      try {
-        const parts = state.token.split('.');
-        if (parts.length !== 3) return true;
-        const base64Url = parts[1];
-        if (!base64Url) return true;
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        const payload = JSON.parse(jsonPayload);
-        const now = Math.floor(Date.now() / 1000);
-        return payload.exp < now;
-      } catch (e) {
-        return true;
+  async function refreshAuthToken() {
+    // Asume que hay un endpoint /auth/refresh que acepta el refresh token. Hacerlo en el backend.
+    if (!refreshToken.value) return
+    try {
+      // Reemplaza esto por tu llamada real al backend
+      const response = await fetch('/auth/refresh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken: refreshToken.value })
+      })
+      const data = await response.json()
+      if (data.token) {
+        setToken(data.token)
       }
-    },
+      if (data.refreshToken) {
+        setRefreshToken(data.refreshToken)
+      }
+    } catch (error) {
+      console.error('Error al refrescar el token:', error)
+      logout()
+    }
+  }
 
-    // Verifica si el usuario tiene un rol específico
-    hasRole: (state) => (role: string) => {
-      return state.user?.role === role;
-    },
-
-    // Verifica si el usuario es administrador
-    isAdmin: (state) => {
-      return state.user?.role === 'admin';
-    },
-
-    // Verifica si el usuario es cliente
-    isCustomer: (state) => {
-      return state.user?.role === 'customer';
-    },
-  },
+  return {
+    // State
+    token,
+    refreshToken,
+    user,
+    sessionId,
+    // Getters
+    isAuthenticated,
+    isTokenExpired,
+    hasRole,
+    isAdmin,
+    isCustomer,
+    // Actions
+    setToken,
+    setRefreshToken,
+    setUser,
+    restoreSession,
+    decodeJwt,
+    checkAndHandleTokenExpiration,
+    logout,
+    refreshAuthToken
+  }
 })
+

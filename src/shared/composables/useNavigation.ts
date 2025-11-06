@@ -58,6 +58,9 @@ export function useNavigation() {
       case 'home':
         router.push('/');
         break;
+      case 'account':
+        router.push('/account');
+        break;
       default:
         break;
     }

@@ -15,7 +15,7 @@
       <input v-model="form.avatar" id="avatar" type="text" />
       <span v-if="errors.avatar" class="error">{{ errors.avatar }}</span>
     </div>
-    <button type="submit">Guardar cambios</button>
+    <BaseAccountButton type="submit">Guardar cambios</BaseAccountButton>
   </form>
 </template>
 
@@ -28,6 +28,7 @@ import { updateProfile } from '@/domain/account/services/accountService'
 import { useMutation } from '@tanstack/vue-query'
 import { useErrorHandler } from '@/shared/composables/useErrorHandler'
 import type { AccountProfile } from '@/domain/account/interfaces/AccountProfile'
+import { BaseAccountButton } from '@/shared/components/ui/actions/buttons'
 
 const authStore = useAuthStore()
 const user = authStore.user
@@ -105,18 +106,5 @@ input {
 .error {
   color: #e53e3e;
   font-size: 0.9rem;
-}
-button[type='submit'] {
-  background: #667eea;
-  color: #fff;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-button[type='submit']:hover {
-  background: #5a67d8;
 }
 </style>

@@ -1,12 +1,13 @@
 <template>
   <div class="buy-now">
-    <button class="buy-now__button" @click="onBuyNow">Comprar ahora</button>
+    <BasePaymentButton @click="onBuyNow">Comprar ahora</BasePaymentButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ProductInterface } from '@/domain/products/products/interface/ProductsInterface'
 import { useRouter } from 'vue-router'
+import { BasePaymentButton } from '@/shared/components/ui/actions/buttons'
 
 const props = defineProps<{ product: ProductInterface }>()
 const router = useRouter()

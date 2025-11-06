@@ -37,7 +37,7 @@
 import { defineProps, defineEmits, watch } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { buyNowFormSchema } from '../schema/buyNowFormSchema'
+import { buyNowFormSchema } from '../../schema/buyNowFormSchema'
 
 const props = defineProps<{ modelValue: any }>()
 const emit = defineEmits(['update:modelValue'])

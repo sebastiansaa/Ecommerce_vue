@@ -9,15 +9,26 @@
 import { useAuthSocial } from '@/domain/auth/Composable/useAuthSocial'
 import { GoogleButton, FacebookButton } from '@/shared/components/ui'
 
-const { loginWithGoogle, loginWithFacebook } = useAuthSocial()
+const { loginWithGoogle, loginWithFacebook, isLoadingGoogle, isLoadingFacebook } = useAuthSocial()
 
-function onGoogle() {
-  // Aquí deberías obtener el token de Google y pasarlo
-  loginWithGoogle.mutate('GOOGLE_TOKEN')
+async function onGoogle() {
+  try {
+    // Aquí deberías obtener el token de Google y pasarlo
+    await loginWithGoogle('GOOGLE_TOKEN')
+    // Manejar éxito del login
+  } catch (error) {
+    console.error('Error al iniciar sesión con Google:', error)
+  }
 }
-function onFacebook() {
-  // Aquí deberías obtener el token de Facebook y pasarlo
-  loginWithFacebook.mutate('FACEBOOK_TOKEN')
+
+async function onFacebook() {
+  try {
+    // Aquí deberías obtener el token de Facebook y pasarlo
+    await loginWithFacebook('FACEBOOK_TOKEN')
+    // Manejar éxito del login
+  } catch (error) {
+    console.error('Error al iniciar sesión con Facebook:', error)
+  }
 }
 </script>
 
